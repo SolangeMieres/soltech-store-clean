@@ -2,24 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   color-scheme: dark;
 }
 
 body {
-  @apply bg-darkbg text-white;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, 'Poppins', Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+  @apply bg-neutral-950 text-neutral-100 font-sans antialiased;
 }
 
-.container {
-  @apply max-w-6xl mx-auto px-4;
+/* 🔹 Cabecera principal */
+h1, h2, h3 {
+  @apply text-white font-bold;
 }
 
+h1 {
+  @apply text-4xl md:text-5xl mt-6 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500;
+}
+
+/* 🔹 Botones */
 .btn-primary {
-  @apply bg-primary hover:bg-pink-600 text-white font-semibold px-4 py-2 rounded-lg transition;
+  @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-5 py-2 rounded-lg shadow-md transition-all;
 }
 
+/* 🔹 Cards de productos */
 .card {
-  @apply bg-darkcard rounded-2xl p-4 shadow-md border border-neutral-800;
+  @apply bg-neutral-900 border border-neutral-800 rounded-2xl p-5 shadow-lg hover:shadow-indigo-500/30 transition-all;
+}
+
+.card img {
+  @apply w-full h-48 object-contain mb-4 rounded-xl bg-neutral-800;
+}
+
+/* 🔹 Footer */
+footer {
+  @apply mt-10 text-center text-sm text-neutral-400 border-t border-neutral-800 pt-6;
 }
