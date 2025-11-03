@@ -45,3 +45,34 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Error creando preferencia" });
   }
 }
+
+// /pages/api/checkout.js
+export default async function handler(req, res) {
+  const mercadopago = require('mercadopago');
+
+  mercadopago.configure({
+    access_token: process.env.MP_ACCESS_TOKEN, // 🔒 token privado
+  });
+
+  const preference = {
+    items: [
+      {
+        title: 'Producto Test',
+        quantity: 1,
+        currency_id: 'ARS',
+        unit_price: 1000,
+      },
+    ],
+  };
+
+  try {
+    const response = await mercadopago.preferences.create(preference);
+    res.status(200).json({ id: response.body.id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+const mp = new MercadoPago(process.env.NEXT_PUBLIC_MP_PUBLIC_KEY, {
+  locale: 'es-AR'
+});
