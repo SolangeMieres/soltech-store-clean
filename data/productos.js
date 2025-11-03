@@ -1,16 +1,16 @@
 export const productos = [
   {
     id: 1,
-    nombre: "Taladro Eléctrico Percutor Black & Decker 13mm 550W",
-    precio: 130000,
-    descripcion: "Velocidad variable, mango ergonómico y diseño duradero.",
-    imagen: "/img/taladro.jpg"
+    title: "Taladro Eléctrico Percutor Black & Decker 13mm 550W",
+    description: "Velocidad variable, mango ergonómico y diseño duradero.",
+    price: 130000, // ← asegurate de que NO tenga comillas
+    image: "/img/taladro.jpg",
   },
   {
     id: 2,
-    nombre: "Notebook Celeron 14.1'' 4GB 128GB SSD Philco",
-    precio: 350000,
-    descripcion: "Liviana y eficiente, ideal para estudio y trabajo (Windows 11).",
-    imagen: "/img/notebook.jpg"
-  }
+    title: "Notebook Celeron 14.1'' 4GB 128GB SSD Philco",
+    description: "Liviana y eficiente, ideal para estudio y trabajo (Windows 11).",
+    price: 350000, // ← también sin comillas
+    image: "/img/notebook.jpg",
+  },
 ];

@@ -2,39 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
-
 body {
-  @apply bg-neutral-950 text-neutral-100 font-sans;
+  @apply bg-dark text-light font-sans min-h-screen antialiased;
 }
 
-/* TITULARES */
-h1 {
-  @apply text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6;
+h1, h2, h3 {
+  @apply text-brand font-bold;
 }
 
-h2 {
-  @apply text-2xl font-semibold text-white mt-10 mb-4;
+button {
+  @apply bg-brand text-white px-4 py-2 rounded-lg hover:bg-accent transition;
 }
 
-/* BOTONES */
-.btn-primary {
-  @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 
-  text-white font-semibold px-5 py-2 rounded-lg shadow-lg transition-all;
-}
-
-/* PRODUCT CARDS */
+/* Estilo de tarjeta (productos) */
 .card {
-  @apply bg-neutral-900 border border-neutral-800 rounded-2xl p-5 shadow-md hover:shadow-purple-500/20 transition;
+  @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-soft p-5 transition-transform duration-300 hover:scale-[1.03];
 }
-
-.card img {
-  @apply w-full h-48 object-contain mb-4 rounded-xl bg-neutral-800;
-}
-
-/* FOOTER */
-footer {
-  @apply mt-16 text-center text-sm text-neutral-400 border-t border-neutral-800 pt-6 pb-4;
+nav a {
+  @apply hover:underline underline-offset-4 decoration-brand transition-all duration-200;
 }

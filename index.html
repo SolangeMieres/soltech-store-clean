@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOLtech Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="./public/logo.png" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: "#00B4D8",
+              dark: "#0D1117",
+              light: "#F5F7FA",
+              gray: "#1E2329",
+              accent: "#3A86FF",
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "Avenir", "Helvetica", "Arial", "sans-serif"],
+            },
+            boxShadow: {
+              soft: "0 4px 10px rgba(0,0,0,0.3)",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-dark text-light font-sans">
+
+    <!-- 🌟 NAVBAR -->
+    <nav class="flex items-center justify-between px-8 py-4 bg-gray shadow-soft sticky top-0 z-50">
+      <div class="flex items-center gap-3">
+        <img src="./public/logo.png" alt="SOLtech Logo" class="w-10 h-10 rounded-full" />
+        <h1 class="text-brand text-xl font-bold tracking-tight">SOLtech Store</h1>
+      </div>
+      <div class="flex gap-6 text-light/80 text-sm">
+        <a href="#" class="hover:text-brand transition">Inicio</a>
+        <a href="#" class="hover:text-brand transition">Productos</a>
+        <a href="#" class="hover:text-brand transition">Contacto</a>
+      </div>
+    </nav>
+
+    <!-- 🪩 HERO -->
+    <section class="text-center py-20 px-6 bg-gradient-to-b from-gray to-dark">
+      <h2 class="text-4xl md:text-5xl font-bold text-brand mb-4">Tecnología con estilo</h2>
+      <p class="text-light/80 max-w-xl mx-auto mb-8">
+        Equipos, accesorios y soluciones tech diseñadas para simplificar tu vida digital.  
+        Innovación, diseño y potencia — todo en un solo lugar.
+      </p>
+      <button class="bg-brand text-white px-6 py-3 rounded-lg shadow-soft hover:bg-accent hover:shadow-lg transition-all">
+        🚀 Ver productos
+      </button>
+    </section>
+
+    <!-- 🛍️ PRODUCTOS -->
+    <section class="max-w-6xl mx-auto py-16 px-6 grid gap-8 md:grid-cols-3">
+      <div class="card">
+        <img src="https://placehold.co/400x250/1E2329/00B4D8?text=Smart+Headphones" alt="Producto" class="rounded-lg mb-4" />
+        <h3 class="text-lg font-bold mb-2">Auriculares Inalámbricos Pro</h3>
+        <p class="text-sm text-light/70 mb-4">Sonido envolvente, cancelación activa y 40h de batería.</p>
+        <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-accent transition">Comprar</button>
+      </div>
+
+      <div class="card">
+        <img src="https://placehold.co/400x250/1E2329/00B4D8?text=Smart+Watch" alt="Producto" class="rounded-lg mb-4" />
+        <h3 class="text-lg font-bold mb-2">Smartwatch Active 2</h3>
+        <p class="text-sm text-light/70 mb-4">Monitoreo de salud, resistencia al agua y diseño elegante.</p>
+        <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-accent transition">Comprar</button>
+      </div>
+
+      <div class="card">
+        <img src="https://placehold.co/400x250/1E2329/00B4D8?text=Wireless+Keyboard" alt="Producto" class="rounded-lg mb-4" />
+        <h3 class="text-lg font-bold mb-2">Teclado Mecánico Wireless</h3>
+        <p class="text-sm text-light/70 mb-4">Retroiluminado RGB, conexión dual y switches silenciosos.</p>
+        <button class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-accent transition">Comprar</button>
+      </div>
+    </section>
+
+    <!-- ⚡ FOOTER -->
+    <footer class="bg-gray py-6 text-center text-light/60 text-sm">
+      © 2025 SOLtech Store — Innovación con alma 💡
+    </footer>
+  </body>
+</html>
