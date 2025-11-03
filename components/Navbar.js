@@ -1,15 +1,20 @@
 export default function Navbar() {
   return (
-    <header className="border-b border-neutral-800">
-      <div className="container flex items-center justify-between h-16">
+    <nav className="bg-neutral-950 border-b border-neutral-800 sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+        {/* LOGO */}
         <div className="flex items-center gap-3">
-          <img src="/img/soltech-logo.png" alt="SOLtech" className="h-9 w-9 rounded-full ring-2 ring-primary/60" />
-          <div className="font-semibold tracking-wide">SOLtech</div>
+          <img src="/img/soltech-logo.png" alt="SOLtech logo" className="w-10 h-10" />
+          <span className="text-xl font-semibold text-white">SOLtech</span>
         </div>
-        <nav className="text-sm text-neutral-300">
-          <a href="#catalogo" className="hover:text-white transition">Productos</a>
-        </nav>
+
+        {/* LINKS */}
+        <div className="flex gap-6 text-sm font-medium">
+          <a href="#" className="text-neutral-300 hover:text-blue-400 transition">Inicio</a>
+          <a href="#productos" className="text-neutral-300 hover:text-blue-400 transition">Productos</a>
+          <a href="#contacto" className="text-neutral-300 hover:text-blue-400 transition">Contacto</a>
+        </div>
       </div>
-    </header>
+    </nav>
   );
 }

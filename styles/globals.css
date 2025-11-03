@@ -10,30 +10,31 @@ body {
   @apply bg-neutral-950 text-neutral-100 font-sans antialiased;
 }
 
-/* 🔹 Cabecera principal */
-h1, h2, h3 {
-  @apply text-white font-bold;
-}
-
+/* TITULARES */
 h1 {
-  @apply text-4xl md:text-5xl mt-6 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500;
+  @apply text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6;
 }
 
-/* 🔹 Botones */
+h2 {
+  @apply text-2xl font-semibold text-white mt-10 mb-4;
+}
+
+/* BOTONES */
 .btn-primary {
-  @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold px-5 py-2 rounded-lg shadow-md transition-all;
+  @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 
+  text-white font-semibold px-5 py-2 rounded-lg shadow-lg transition-all;
 }
 
-/* 🔹 Cards de productos */
+/* PRODUCT CARDS */
 .card {
-  @apply bg-neutral-900 border border-neutral-800 rounded-2xl p-5 shadow-lg hover:shadow-indigo-500/30 transition-all;
+  @apply bg-neutral-900 border border-neutral-800 rounded-2xl p-5 shadow-md hover:shadow-purple-500/20 transition;
 }
 
 .card img {
   @apply w-full h-48 object-contain mb-4 rounded-xl bg-neutral-800;
 }
 
-/* 🔹 Footer */
+/* FOOTER */
 footer {
-  @apply mt-10 text-center text-sm text-neutral-400 border-t border-neutral-800 pt-6;
+  @apply mt-16 text-center text-sm text-neutral-400 border-t border-neutral-800 pt-6 pb-4;
 }
