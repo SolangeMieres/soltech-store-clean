@@ -31,11 +31,16 @@ export default function ProductCard({ id, title, title_en, description, descript
 
     try {
       setLoading(true)
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, title: displayTitle, price }),
-      })
+      const response = await fetch("/api/checkout", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    title: product.title,
+    quantity: 1,
+    price: product.price,
+  }),
+});
+
 
       const data = await res.json()
       if (!res.ok || !data.init_point) {
