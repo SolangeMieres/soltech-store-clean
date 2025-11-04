@@ -1,53 +1,51 @@
-import { useState } from "react";
+// components/ShippingCalculator.js
+import { useState } from "react"
 
-function ShippingCalculator() {
-  const [zip, setZip] = useState("");
-  const [fee, setFee] = useState(null);
-  const [error, setError] = useState("");
+const texts = {
+  es: {
+    title: "Calculá tu costo de envío 🚛",
+    placeholder: "Código postal",
+    button: "Calcular",
+    result: "Costo estimado:",
+    alert: "Ingresá un código postal válido",
+  },
+  en: {
+    title: "Estimate your shipping cost 🚛",
+    placeholder: "ZIP code",
+    button: "Calculate",
+    result: "Estimated cost:",
+    alert: "Please enter a valid ZIP code",
+  },
+}
 
-  const handleCalculate = () => {
-    if (!zip || zip.length < 4) {
-      setError("Ingresá un código postal válido");
-      setFee(null);
-      return;
-    }
+export default function ShippingCalculator({ lang = "es" }) {
+  const [zip, setZip] = useState("")
+  const [cost, setCost] = useState(null)
+  const t = texts[lang] || texts.es
 
-    setError("");
-    const calculated = Math.floor(Math.random() * 1000) + 500;
-    setFee(calculated);
-  };
+  const calculateShipping = () => {
+    if (!zip) return alert(t.alert)
+    const simulatedCost = Math.floor(Math.random() * 2000) + 500
+    setCost(simulatedCost)
+  }
 
   return (
-    <div className="p-4 bg-neutral-900 rounded-lg shadow-lg text-center">
-      <h2 className="text-lg font-semibold mb-2 text-white">
-        Calculá tu costo de envío 🚚
-      </h2>
+    <div className="bg-dark/70 border border-light/10 shadow-soft rounded-2xl p-6 text-center max-w-md mx-auto mt-8">
+      <h2 className="text-lg font-bold text-brand mb-3">{t.title}</h2>
       <input
         type="text"
-        placeholder="Código postal"
+        placeholder={t.placeholder}
         value={zip}
         onChange={(e) => setZip(e.target.value)}
-        className="w-full p-2 rounded text-black"
+        className="px-3 py-2 rounded-lg w-40 text-dark mr-2"
       />
-      <button
-        onClick={handleCalculate}
-        className="mt-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Calcular
-      </button>
-
-      {error && <p className="text-red-400 mt-2 text-sm">{error}</p>}
-      {fee != null && !error && (
-        <p className="text-sm text-neutral-300 mt-2">
-          Envío estimado:
-          <span className="font-semibold text-white">
-            {" "}
-            ${fee.toLocaleString("es-AR")}
-          </span>
+      <button onClick={calculateShipping}>{t.button}</button>
+      {cost && (
+        <p className="mt-3 text-light">
+          {t.result}{" "}
+          <span className="text-brand">${cost.toLocaleString("es-AR")}</span>
         </p>
       )}
     </div>
-  );
+  )
 }
-
-export default ShippingCalculator;

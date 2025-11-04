@@ -1,16 +1,22 @@
 import mercadopago from "mercadopago";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST")
+  if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
+  }
 
-  const { title, unit_price, quantity, picture_url, shipping_fee = 0 } = req.body || {};
+  const { title, price, id } = req.body || {};
+
+  if (!title || !price) {
+    return res.status(400).json({ error: "Faltan datos del producto" });
+  }
+
+  if (!process.env.MP_ACCESS_TOKEN) {
+    console.error("❌ Falta MP_ACCESS_TOKEN en las variables de entorno");
+    return res.status(500).json({ error: "Error de configuración" });
+  }
 
   try {
-    if (!process.env.MP_ACCESS_TOKEN) {
-      return res.status(500).json({ error: "Falta MP_ACCESS_TOKEN" });
-    }
-
     mercadopago.configure({
       access_token: process.env.MP_ACCESS_TOKEN,
     });
@@ -18,34 +24,34 @@ export default async function handler(req, res) {
     const preference = {
       items: [
         {
-          title: title || "Producto SOLtech",
-          quantity: quantity || 1,
+          id: id || "product",
+          title,
+          quantity: 1,
           currency_id: "ARS",
-          unit_price: Number(unit_price) || 0,
-          picture_url: picture_url || undefined,
+          unit_price: Number(price),
         },
       ],
-      shipments: {
-        cost: Number(shipping_fee) || 0,
-        mode: "not_specified",
-      },
       back_urls: {
-        success: "https://soltech.vercel.app/success",
-        pending: "https://soltech.vercel.app/pending",
-        failure: "https://soltech.vercel.app/failure",
+        success: "http://localhost:3000/",
+        failure: "http://localhost:3000/",
+        pending: "http://localhost:3000/",
       },
       auto_return: "approved",
-      statement_descriptor: "SOLTECH",
     };
 
     const response = await mercadopago.preferences.create(preference);
 
     return res.status(200).json({
-      id: response.body.id,
-      init_point: response.body.init_point,
+      init_point:
+        response.body.init_point ||
+        response.body.sandbox_init_point ||
+        null,
     });
-  } catch (err) {
-    console.error("❌ MercadoPago error:", err);
-    return res.status(500).json({ error: "Error creando preferencia" });
+  } catch (error) {
+    console.error("MercadoPago error:", error);
+    return res
+      .status(500)
+      .json({ error: "Error creando la preferencia de pago" });
   }
 }
+console.log("🧠 Token activo:", process.env.MP_ACCESS_TOKEN ? "OK" : "FALTA");

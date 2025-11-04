@@ -1,69 +1,65 @@
-import Navbar from '@/components/Navbar'
-import ProductCard from '@/components/ProductCard'
-import Footer from '@/components/Footer'
-import { motion } from 'framer-motion'
+// pages/index.js
+import { useState } from "react"
+import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
+import ProductCard from "@/components/ProductCard"
+import ShippingCalculator from "@/components/ShippingCalculator"
+import products from "@/data/productos"
+
+const texts = {
+  es: {
+    heroTitle: "Tecnología con estilo",
+    heroSubtitle1:
+      "Equipos, accesorios y soluciones tech diseñadas para simplificar tu vida digital.",
+    heroSubtitle2:
+      "Innovación, diseño y potencia — todo en un solo lugar.",
+    cta: "Ver productos",
+  },
+  en: {
+    heroTitle: "Technology with style",
+    heroSubtitle1:
+      "Devices, accessories and tech solutions to simplify your digital life.",
+    heroSubtitle2:
+      "Innovation, design and power — all in one place.",
+    cta: "View products",
+  },
+}
 
 export default function Home() {
-  const products = [
-    {
-      title: "Auriculares Inalámbricos Pro",
-      description: "Sonido envolvente, cancelación activa y 40h de batería.",
-      image: "https://placehold.co/400x250/1E2329/00B4D8?text=Smart+Headphones"
-    },
-    {
-      title: "Smartwatch Active 2",
-      description: "Monitoreo de salud, resistencia al agua y diseño elegante.",
-      image: "https://placehold.co/400x250/1E2329/00B4D8?text=Smart+Watch"
-    },
-    {
-      title: "Teclado Mecánico Wireless",
-      description: "Retroiluminado RGB, conexión dual y switches silenciosos.",
-      image: "https://placehold.co/400x250/1E2329/00B4D8?text=Wireless+Keyboard"
-    }
-  ]
+  const [lang, setLang] = useState("es")
+  const t = texts[lang] || texts.es
 
   return (
-    <div className="bg-dark min-h-screen text-light">
-      <Navbar />
+    <div>
+      <Navbar lang={lang} onChangeLang={setLang} />
 
-      {/* HERO con animación */}
-      <motion.section
-        className="text-center py-20 px-6 bg-gradient-to-b from-gray to-dark"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-      >
-        <h2 className="text-4xl md:text-5xl font-bold text-brand mb-4">
-          Tecnología con estilo
-        </h2>
-        <p className="text-light/80 max-w-xl mx-auto mb-8">
-          Equipos, accesorios y soluciones tech diseñadas para simplificar tu vida digital.  
-          Innovación, diseño y potencia — todo en un solo lugar.
+      <main className="min-h-screen px-6 md:px-12 text-center pt-12">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4">
+          {t.heroTitle}
+        </h1>
+        <p className="text-light/80 max-w-2xl mx-auto">
+          {t.heroSubtitle1}
+          <br />
+          {t.heroSubtitle2}
         </p>
-        <motion.button
-          className="bg-brand text-white px-6 py-3 rounded-lg shadow-soft hover:bg-accent hover:shadow-lg transition-all"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+
+        <a href="#productos" className="inline-block mt-6">
+          <button>🚀 {t.cta}</button>
+        </a>
+
+        <ShippingCalculator lang={lang} />
+
+        <section
+          id="productos"
+          className="flex flex-wrap justify-center gap-8 mt-12"
         >
-          🚀 Ver productos
-        </motion.button>
-      </motion.section>
+          {products.map((p) => (
+            <ProductCard key={p.id} {...p} lang={lang} />
+          ))}
+        </section>
+      </main>
 
-      {/* PRODUCTOS con animación en cascada */}
-      <section className="max-w-6xl mx-auto py-16 px-6 grid gap-8 md:grid-cols-3">
-        {products.map((p, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.3, duration: 0.8 }}
-          >
-            <ProductCard {...p} />
-          </motion.div>
-        ))}
-      </section>
-
-      <Footer />
+      <Footer lang={lang} />
     </div>
   )
 }
