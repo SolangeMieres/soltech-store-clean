@@ -34,7 +34,7 @@ export default function Footer({ lang = "es" }) {
           📲 {t.whatsapp}
         </a>
         <a
-          href="mailto:contacto@soltech.com"
+          href="soltechargentina10@gmail.com"
           className="hover:text-brand transition"
         >
           ✉️ {t.email}
