@@ -26,7 +26,7 @@ export default function Footer({ lang = "es" }) {
       <p>{t.line2}</p>
       <div className="mt-3 flex justify-center gap-4">
         <a
-          href="https://wa.me/5491123456789"
+          href="https://wa.me/5491132905944"
           target="_blank"
           rel="noreferrer"
           className="hover:text-brand transition"
