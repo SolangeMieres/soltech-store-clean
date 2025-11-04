@@ -1,79 +1,76 @@
-// components/ProductCard.js
-import { useState } from "react"
+"use client";
+import Image from "next/image";
+import { useState } from "react";
 
-const texts = {
-  es: {
-    buy: "Comprar",
-    noPrice: "Precio no disponible",
-    errorStart: "No se pudo iniciar el pago.",
-    errorGeneric: "Ocurrió un error iniciando el pago.",
-    loading: "Redirigiendo...",
-  },
-  en: {
-    buy: "Buy",
-    noPrice: "Price not available",
-    errorStart: "Could not start payment.",
-    errorGeneric: "An error occurred while starting payment.",
-    loading: "Redirecting...",
-  },
-}
-
-export default function ProductCard({ id, title, title_en, description, description_en, price, image, lang = "es" }) {
-  const [loading, setLoading] = useState(false)
-  const t = texts[lang] || texts.es
-
-  const displayTitle = lang === "en" ? (title_en || title) : title
-  const displayDescription =
-    lang === "en" ? (description_en || description) : description
+export default function ProductCard({ title, description, price, image }) {
+  const [loading, setLoading] = useState(false);
 
   const handleBuy = async () => {
-    if (!price) return alert(t.noPrice)
-
     try {
-      setLoading(true)
+      setLoading(true);
+
       const response = await fetch("/api/checkout", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    title: product.title,
-    quantity: 1,
-    price: product.price,
-  }),
-});
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          quantity: 1,
+          price,
+        }),
+      });
 
+      const data = await response.json();
 
-      const data = await res.json()
-      if (!res.ok || !data.init_point) {
-        console.error(data)
-        alert(t.errorStart)
-        return
+      if (!response.ok) {
+        throw new Error(data.error || "Error iniciando el pago");
       }
 
-      // Redirige al checkout de Mercado Pago
-      window.location.href = data.init_point
+      if (data.init_point) {
+        window.location.href = data.init_point;
+      } else {
+        alert("No se pudo iniciar el pago.");
+      }
     } catch (error) {
-      console.error(error)
-      alert(t.errorGeneric)
+      console.error(error);
+      alert("No se pudo iniciar el pago.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="bg-dark/80 border border-light/10 shadow-soft rounded-2xl p-4 hover:scale-[1.02] transition w-80 text-center">
-      <img
-        src={image || "/images/notebook.jpg"}
-        alt={displayTitle}
-        className="w-full h-48 object-cover rounded-lg mb-4"
-      />
-      <h3 className="text-lg font-bold text-brand mb-2">{displayTitle}</h3>
-      <p className="text-sm text-light/70 mb-3">{displayDescription}</p>
-      <p className="text-sm font-semibold text-light mb-4">
-        {price ? `$${price.toLocaleString("es-AR")}` : t.noPrice}
+    <div className="bg-dark/40 backdrop-blur-sm rounded-2xl shadow-lg border border-cyan-700/30 p-4 text-center transition hover:shadow-cyan-400/30 hover:scale-[1.02]">
+      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl bg-dark/70 flex items-center justify-center">
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            width={300}
+            height={200}
+            className="object-contain"
+          />
+        ) : (
+          <div className="text-gray-400 text-sm">Sin imagen</div>
+        )}
+      </div>
+
+      <h3 className="text-cyan-400 font-semibold text-lg mb-1">{title}</h3>
+      <p className="text-gray-400 text-sm mb-3">{description}</p>
+      <p className="text-light font-semibold text-base mb-4">
+        {price ? `$${price.toLocaleString("es-AR")}` : "Precio no disponible"}
       </p>
-      <button onClick={handleBuy} disabled={loading}>
-        {loading ? t.loading : t.buy}
+
+      <button
+        onClick={handleBuy}
+        disabled={loading}
+        className={`px-5 py-2 rounded-lg text-white font-medium transition ${
+          loading
+            ? "bg-gray-500 cursor-not-allowed"
+            : "bg-cyan-500 hover:bg-cyan-400"
+        }`}
+      >
+        {loading ? "Redirigiendo..." : "Comprar"}
       </button>
     </div>
-  )
+  );
 }
