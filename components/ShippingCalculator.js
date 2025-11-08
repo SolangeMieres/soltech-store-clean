@@ -1,51 +1,30 @@
-// components/ShippingCalculator.js
-import { useState } from "react"
+import React from "react";
+import { FaWhatsapp } from "react-icons/fa";
 
-const texts = {
-  es: {
-    title: "Calculá tu costo de envío 🚛",
-    placeholder: "Código postal",
-    button: "Calcular",
-    result: "Costo estimado:",
-    alert: "Ingresá un código postal válido",
-  },
-  en: {
-    title: "Estimate your shipping cost 🚛",
-    placeholder: "ZIP code",
-    button: "Calculate",
-    result: "Estimated cost:",
-    alert: "Please enter a valid ZIP code",
-  },
-}
-
-export default function ShippingCalculator({ lang = "es" }) {
-  const [zip, setZip] = useState("")
-  const [cost, setCost] = useState(null)
-  const t = texts[lang] || texts.es
-
-  const calculateShipping = () => {
-    if (!zip) return alert(t.alert)
-    const simulatedCost = Math.floor(Math.random() * 2000) + 500
-    setCost(simulatedCost)
-  }
+export default function ShippingCalculator() {
+  const handleClick = () => {
+    const message = encodeURIComponent(
+      "¡Hola! 👋 Quisiera consultar por el envío de un producto de la tienda SOLtech Store."
+    );
+    window.open(`https://wa.me/5491132905944?text=${message}`, "_blank");
+  };
 
   return (
-    <div className="bg-dark/70 border border-light/10 shadow-soft rounded-2xl p-6 text-center max-w-md mx-auto mt-8">
-      <h2 className="text-lg font-bold text-brand mb-3">{t.title}</h2>
-      <input
-        type="text"
-        placeholder={t.placeholder}
-        value={zip}
-        onChange={(e) => setZip(e.target.value)}
-        className="px-3 py-2 rounded-lg w-40 text-dark mr-2"
-      />
-      <button onClick={calculateShipping}>{t.button}</button>
-      {cost && (
-        <p className="mt-3 text-light">
-          {t.result}{" "}
-          <span className="text-brand">${cost.toLocaleString("es-AR")}</span>
-        </p>
-      )}
+    <div className="bg-gray-900 text-white p-6 rounded-2xl shadow-lg text-center border border-cyan-500/20">
+      <h2 className="text-xl font-semibold mb-3 text-cyan-400">
+        ¿Consultas por envíos? 🚚
+      </h2>
+      <p className="text-gray-300 mb-4">
+        Hacé clic abajo para hablar directamente con nosotros por WhatsApp y
+        conocer el costo de tu envío.
+      </p>
+      <button
+        onClick={handleClick}
+        className="flex items-center justify-center gap-2 mx-auto bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-semibold py-2 px-5 rounded-lg transition-all duration-200 shadow-md hover:shadow-cyan-500/40"
+      >
+        <FaWhatsapp className="text-xl" />
+        Consultar por envío
+      </button>
     </div>
-  )
+  );
 }
