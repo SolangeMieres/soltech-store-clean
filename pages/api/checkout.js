@@ -17,10 +17,12 @@ export default async function handler(req, res) {
         },
       ],
       back_urls: {
-        success: `${process.env.NEXT_PUBLIC_API_URL}/success`,
-        failure: `${process.env.NEXT_PUBLIC_API_URL}/failure`,
-      },
-      auto_return: "approved",
+  success: "https://soltech-store-argentina.vercel.app/success",
+  pending: "https://soltech-store-argentina.vercel.app/pending",
+  failure: "https://soltech-store-argentina.vercel.app/failure",
+},
+auto_return: "approved",
+
     };
 
     const response = await fetch("https://api.mercadopago.com/checkout/preferences", {

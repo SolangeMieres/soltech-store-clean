@@ -4,6 +4,7 @@
 
 body {
   @apply bg-dark text-light font-sans;
+  
 }
 
 h1, h2, h3 {
