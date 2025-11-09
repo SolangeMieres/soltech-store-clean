@@ -1,46 +1,39 @@
-// pages/api/checkout.js
+import mercadopago from "mercadopago";
+
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
+  if (req.method !== "POST")
     return res.status(405).json({ error: "Método no permitido" });
-  }
+
+  const { title, unit_price, quantity, picture_url } = req.body;
 
   try {
-    const { title, quantity, price } = req.body;
+    mercadopago.configure({
+      access_token: process.env.MP_ACCESS_TOKEN,
+    });
 
     const preference = {
       items: [
         {
-          title,
-          quantity,
+          title: title || "Producto SOLtech",
+          quantity: quantity || 1,
           currency_id: "ARS",
-          unit_price: price,
+          unit_price: Number(unit_price) || 0,
+          picture_url: picture_url || undefined,
         },
       ],
       back_urls: {
-  success: "https://soltech-store-argentina.vercel.app/success",
-  pending: "https://soltech-store-argentina.vercel.app/pending",
-  failure: "https://soltech-store-argentina.vercel.app/failure",
-},
-auto_return: "approved",
-
+        success: "https://soltech-store-argentina.vercel.app/success",
+        failure: "https://soltech-store-argentina.vercel.app/failure",
+        pending: "https://soltech-store-argentina.vercel.app/pending",
+      },
+      auto_return: "approved",
+      statement_descriptor: "SOLTECH",
     };
 
-    const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.MP_ACCESS_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(preference),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) throw new Error(data.message || "Error creando la preferencia de pago");
-
-    return res.status(200).json({ init_point: data.init_point });
+    const response = await mercadopago.preferences.create(preference);
+    return res.status(200).json({ init_point: response.body.init_point });
   } catch (error) {
-    console.error("❌ Error creando la preferencia:", error);
-    return res.status(500).json({ error: "Error creando la preferencia de pago" });
+    console.error("MercadoPago error:", error);
+    return res.status(500).json({ error: "Error creando la preferencia" });
   }
 }

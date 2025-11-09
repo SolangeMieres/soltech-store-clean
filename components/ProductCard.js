@@ -8,31 +8,27 @@ export default function ProductCard({ title, description, price, image }) {
   const handleBuy = async () => {
     try {
       setLoading(true);
-
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title,
+          title: title || "Producto SOLtech",
+          unit_price: price || 0,
           quantity: 1,
-          price,
+          picture_url: image || "https://soltech-store-argentina.vercel.app/logo.png",
         }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Error iniciando el pago");
-      }
-
-      if (data.init_point) {
-        window.location.href = data.init_point;
+      if (data?.init_point) {
+        window.location.href = data.init_point; // redirige al checkout real
       } else {
         alert("No se pudo iniciar el pago.");
       }
     } catch (error) {
       console.error(error);
-      alert("No se pudo iniciar el pago.");
+      alert("Hubo un error al generar el pago 😢");
     } finally {
       setLoading(false);
     }
