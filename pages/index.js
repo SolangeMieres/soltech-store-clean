@@ -34,10 +34,10 @@ export default function Home() {
       <Navbar lang={lang} onChangeLang={setLang} />
 
       <main className="min-h-screen px-6 md:px-12 text-center pt-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--color-brand)] mb-4">
           {t.heroTitle}
         </h1>
-        <p className="text-light/80 max-w-2xl mx-auto">
+        <p className="text-[var(--color-light)]/80 max-w-2xl mx-auto">
           {t.heroSubtitle1}
           <br />
           {t.heroSubtitle2}

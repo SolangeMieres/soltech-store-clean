@@ -20,7 +20,7 @@ export default function Footer({ lang = "es" }) {
   return (
     <footer
       id="contacto"
-      className="mt-12 py-8 text-center text-light/70 text-sm border-t border-light/10"
+      className="mt-12 py-8 text-center text-[var(--color-light)]/70 text-sm border-t border-light/10"
     >
       <p>{t.line1}</p>
       <p>{t.line2}</p>
@@ -29,13 +29,13 @@ export default function Footer({ lang = "es" }) {
           href="https://wa.me/5491132905944"
           target="_blank"
           rel="noreferrer"
-          className="hover:text-brand transition"
+          className="hover:text-[var(--color-brand)] transition"
         >
           📲 {t.whatsapp}
         </a>
         <a
           href="soltechargentina10@gmail.com"
-          className="hover:text-brand transition"
+          className="hover:text-[var(--color-brand)] transition"
         >
           ✉️ {t.email}
         </a>

@@ -10,7 +10,7 @@ export default function ShippingCalculator() {
   };
 
   return (
-    <div className="bg-gray-900 text-white p-6 rounded-2xl shadow-lg text-center border border-cyan-500/20">
+    <div className="bg-[var(--color-gray)]-900 text-white p-6 rounded-2xl shadow-lg text-center border border-cyan-500/20">
       <h2 className="text-xl font-semibold mb-3 text-cyan-400">
         ¿Consultas por envíos? 🚚
       </h2>

@@ -35,8 +35,8 @@ export default function ProductCard({ title, description, price, image }) {
   };
 
   return (
-    <div className="bg-dark/40 backdrop-blur-sm rounded-2xl shadow-lg border border-cyan-700/30 p-4 text-center transition hover:shadow-cyan-400/30 hover:scale-[1.02]">
-      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl bg-dark/70 flex items-center justify-center">
+    <div className="bg-[var(--color-dark)]/40 backdrop-blur-sm rounded-2xl shadow-lg border border-cyan-700/30 p-4 text-center transition hover:shadow-cyan-400/30 hover:scale-[1.02]">
+      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl bg-[var(--color-dark)]/70 flex items-center justify-center">
         {image ? (
           <Image
             src={image}
@@ -52,7 +52,7 @@ export default function ProductCard({ title, description, price, image }) {
 
       <h3 className="text-cyan-400 font-semibold text-lg mb-1">{title}</h3>
       <p className="text-gray-400 text-sm mb-3">{description}</p>
-      <p className="text-light font-semibold text-base mb-4">
+      <p className="text-[var(--color-light)] font-semibold text-base mb-4">
         {price ? `$${price.toLocaleString("es-AR")}` : "Precio no disponible"}
       </p>
 
@@ -61,7 +61,7 @@ export default function ProductCard({ title, description, price, image }) {
         disabled={loading}
         className={`px-5 py-2 rounded-lg text-white font-medium transition ${
           loading
-            ? "bg-gray-500 cursor-not-allowed"
+            ? "bg-[var(--color-gray)]-500 cursor-not-allowed"
             : "bg-cyan-500 hover:bg-cyan-400"
         }`}
       >
