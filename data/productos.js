@@ -17,7 +17,7 @@ const products = [
     id: "auriculares",
     title: "Auriculares Bluetooth",
     description: "Cancelación de ruido • 30h de batería",
-    price: 999,
+    price: 69999,
     image: "/images/auriculares.jpg",
   },
 ];

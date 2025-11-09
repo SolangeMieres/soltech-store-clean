@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@tailwindcss/postcss": "^4.1.17",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.23.24",
     "mercadopago": "^2.0.6",
@@ -20,9 +21,13 @@
     "tailwind": "^2.3.1",
     "uuid": "^13.0.0"
   },
-  "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17"
-  }
+  "dependencies": {
+  "next": "14.2.33",
+  "react": "18.3.1",
+  "react-dom": "18.3.1",
+  "tailwindcss": "^4.1.17",
+  "@tailwindcss/postcss": "^4.1.17",
+  "@emailjs/browser": "^3.11.0",
+  "mercadopago": "^2.10.0"
+}
 }
