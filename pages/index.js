@@ -18,83 +18,12 @@ const texts = {
     heroTitle: "Technology with style",
     heroSubtitle1:
       "Devices, accessories and tech solutions to simplify your digital life.",
-    heroSubtitle2:
-      "Innovation, design and power — all in one place.",
+    heroSubtitle2: "Innovation, design and power — all in one place.",
     cta: "View products",
   },
 };
 
-export default function Home({ products }) {
-  const [lang, setLang] = useState("es");
-  const t = texts[lang] || texts.es;
-
-  return (
-    <div>
-      <Navbar lang={lang} onChangeLang={setLang} />
-
-      <main className="min-h-screen px-6 md:px-12 text-center pt-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4">
-          {t.heroTitle}
-        </h1>
-        <p className="text-light/80 max-w-2xl mx-auto">
-          {t.heroSubtitle1}
-          <br />
-          {t.heroSubtitle2}
-        </p>
-
-        <a href="#productos" className="inline-block mt-6">
-          <button>🚀 {t.cta}</button>
-        </a>
-
-        <ShippingCalculator lang={lang} />
-
-<section
-  id="productos"
-  className="flex flex-wrap justify-center gap-8 mt-12"
->
-  {products.length > 0 ? (
-    products.map((p) => (
-      <ProductCard
-        key={p.id}
-        title={p.nombre}
-        price={p.precio}
-        image={p.imagen}
-        description={p.descripcion}
-        lang={lang}
-      />
-    ))
-  ) : (
-    <p className="text-gray-500">No hay productos disponibles.</p>
-  )}
-</section>
-      </main>
-
-      <Footer lang={lang} />
-    </div>
-  );
-}
-
-// 🔄 Leer productos en tiempo real desde el archivo JSON
-export async function getServerSideProps() {
-  const fs = await import("fs");
-  const path = await import("path");
-
-  try {
-    const filePath = path.join(process.cwd(), "data", "productos.json");
-
-    if (!fs.existsSync(filePath)) {
-      return { props: { products: [] } };
-    }
-
-    const fileData = fs.readFileSync(filePath, "utf8") || "[]";
-    const products = JSON.parse(fileData);
-
-    return { props: { products } };
-  } catch (error) {
-    console.error("❌ Error al leer productos:", error);
-    return { props: { products: [] } };
-  }
-}
+// ✅ productos definidos directo en el código (persisten en Vercel)
 const productos = [
   {
     id: 1,
@@ -113,13 +42,62 @@ const productos = [
   {
     id: 3,
     title: "Teclado Mecánico Retroiluminado",
-    description: "Diseño compacto con switches silenciosos y luz ajustable.",
+    description:
+      "Diseño compacto con switches silenciosos y luz ajustable.",
     price: 28999,
     image: "/images/teclado.jpg",
   },
 ];
-export { productos };
 
-// components/Footer.js
-import { useState } from "react";
-    
+export default function Home() {
+  const [lang, setLang] = useState("es");
+  const t = texts[lang] || texts.es;
+
+  return (
+    <div>
+      <Navbar lang={lang} onChangeLang={setLang} />
+
+      <main className="min-h-screen px-6 md:px-12 text-center pt-12">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4">
+          {t.heroTitle}
+        </h1>
+
+        <p className="text-light/80 max-w-2xl mx-auto">
+          {t.heroSubtitle1}
+          <br />
+          {t.heroSubtitle2}
+        </p>
+
+        <a href="#productos" className="inline-block mt-6">
+          <button className="bg-cyan-500 hover:bg-cyan-400 text-white px-6 py-2 rounded-lg shadow-md transition">
+            🚀 {t.cta}
+          </button>
+        </a>
+
+        <ShippingCalculator lang={lang} />
+
+        <section
+          id="productos"
+          className="flex flex-wrap justify-center gap-8 mt-12"
+        >
+          {productos.length > 0 ? (
+            productos.map((p) => (
+              <ProductCard
+                key={p.id}
+                title={p.title}
+                price={p.price}
+                image={p.image}
+                description={p.description}
+                lang={lang}
+              />
+            ))
+          ) : (
+            <p className="text-gray-500">No hay productos disponibles.</p>
+          )}
+        </section>
+      </main>
+
+      <Footer lang={lang} />
+    </div>
+  );
+}
