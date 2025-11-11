@@ -28,7 +28,7 @@ const productos = [
   {
     id: 1,
     title: "Auriculares Bluetooth",
-    description: "Auriculares con cancelación de ruido y micrófono integrado.",
+    description: "Headset Gamer Aimzone negro microfono desmontable AZ709",
     price: 25000,
     image: "/images/auriculares.jpg",
   },
