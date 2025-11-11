@@ -25,27 +25,82 @@ const texts = {
 
 // ✅ Productos cargados directamente
 const productos = [
-  {
-    id: 1,
-    title: "Auriculares Bluetooth",
-    description: "Headset Gamer Aimzone negro microfono desmontable AZ709",
-    price: 25000,
-    image: "/images/auriculares.jpg",
-  },
+{
+  id: 1,
+  title: "Headset Gamer Aimzone negro microfono desmontable AZ709",
+  description: "Filtros\nMicrófono\nSí\nTipo de uso\nOver Ear\nConectividad\nBluetooth\nDeportivo\nNo\nDatos tecnicos\nControl de volumen\nSí\nModelo y origen\nModelo\nAZ709\nOrigen\nChina",
+  price: 25000,
+  image: "/images/auriculares.jpg",
+},
   {
     id: 2,
-    title: "Mouse Gamer RGB",
-    description: "Mouse ergonómico con luces RGB y alta precisión.",
-    price: 15999,
-    image: "/images/mouse.jpg",
+    title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020",
+    description: `Procesador
+Procesador
+Celeron Pad
+Memoria
+Disco SSD
+128 GB
+RAM
+4 GB
+Tipo de disco
+SSD
+Sistema Operativo
+Sistema operativo
+Windows
+Imagen
+Pantalla
+14.1
+Pantalla táctil
+No
+Tecnología de pantalla
+LCD
+Conectividad
+Wi-Fi
+Sí
+Puertos usb
+2 Puertos USB
+Puerto HDMI
+1 Puerto HDMI
+Bluetooth
+Sí
+Detalles
+Camara
+Sí
+Teclado numérico
+No
+Teclado retroiluminado
+No
+Color
+Negro
+Dimensiones
+Medidas
+38 x 9,4 x 27,7 cm
+Peso
+2.12 Kg
+Batería
+Batería
+5000 mAh
+Modelo y origen
+Modelo
+94N14P4020
+Origen
+China`,
+    price: 300000,
+    image: "/images/notebook.jpg",
   },
   {
     id: 3,
-    title: "Teclado Mecánico Retroiluminado",
-    description: "Diseño compacto con switches silenciosos y luz ajustable.",
-    price: 28999,
-    image: "/images/teclado.jpg",
-  },
+    title: "Taladro Percutor 750w Daewoo DAID750BX 13mm Impacto",
+    description: `Mango lateral para un mejor control y estabilidad.
+Diámetro de mandril de 13 mm, compatible con una amplia variedad de brocas.
+
+Incluye llave de mandril para ajustes firmes y seguros.
+
+Tope de profundidad, permitiendo perforaciones exactas sin exceder el nivel deseado.`,
+    price: 70000,
+    image: "/images/taladro.jpg"
+  }
 ];
 
 export default function Home() {
