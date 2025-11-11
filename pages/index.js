@@ -1,10 +1,9 @@
 // pages/index.js
-import { useState } from "react"
-import Navbar from "@/components/Navbar"
-import Footer from "@/components/Footer"
-import ProductCard from "@/components/ProductCard"
-import ShippingCalculator from "@/components/ShippingCalculator"
-import products from "@/data/productos"
+import { useState } from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
+import ShippingCalculator from "@/components/ShippingCalculator";
 
 const texts = {
   es: {
@@ -23,11 +22,11 @@ const texts = {
       "Innovation, design and power — all in one place.",
     cta: "View products",
   },
-}
+};
 
-export default function Home() {
-  const [lang, setLang] = useState("es")
-  const t = texts[lang] || texts.es
+export default function Home({ products }) {
+  const [lang, setLang] = useState("es");
+  const t = texts[lang] || texts.es;
 
   return (
     <div>
@@ -49,17 +48,50 @@ export default function Home() {
 
         <ShippingCalculator lang={lang} />
 
-        <section
-          id="productos"
-          className="flex flex-wrap justify-center gap-8 mt-12"
-        >
-          {products.map((p) => (
-            <ProductCard key={p.id} {...p} lang={lang} />
-          ))}
-        </section>
+<section
+  id="productos"
+  className="flex flex-wrap justify-center gap-8 mt-12"
+>
+  {products.length > 0 ? (
+    products.map((p) => (
+      <ProductCard
+        key={p.id}
+        title={p.nombre}
+        price={p.precio}
+        image={p.imagen}
+        description={p.descripcion}
+        lang={lang}
+      />
+    ))
+  ) : (
+    <p className="text-gray-500">No hay productos disponibles.</p>
+  )}
+</section>
       </main>
 
       <Footer lang={lang} />
     </div>
-  )
+  );
+}
+
+// 🔄 Leer productos en tiempo real desde el archivo JSON
+export async function getServerSideProps() {
+  const fs = await import("fs");
+  const path = await import("path");
+
+  try {
+    const filePath = path.join(process.cwd(), "data", "productos.json");
+
+    if (!fs.existsSync(filePath)) {
+      return { props: { products: [] } };
+    }
+
+    const fileData = fs.readFileSync(filePath, "utf8") || "[]";
+    const products = JSON.parse(fileData);
+
+    return { props: { products } };
+  } catch (error) {
+    console.error("❌ Error al leer productos:", error);
+    return { props: { products: [] } };
+  }
 }

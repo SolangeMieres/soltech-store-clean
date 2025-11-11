@@ -2,14 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .bg-dark {
+    background-color: #0d1117 !important;
+  }
+}
+
+html,
 body {
-  @apply bg-dark text-light font-sans;
-}
-
-h1, h2, h3 {
-  @apply text-brand font-bold;
-}
-
-button {
-  @apply bg-brand text-white px-4 py-2 rounded-lg hover:bg-accent transition;
+  background: linear-gradient(180deg, #0a1218 0%, #081018 100%);
+  color: #e5e7eb;
+  min-height: 100%;
 }

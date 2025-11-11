@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "nombre": "Auriculares Bluetooth",
+    "precio": 25000,
+    "imagen": "/images/auriculares.jpg",
+    "descripcion": "Auriculares inalámbricos con cancelación de ruido, micrófono integrado y estuche de carga. Batería de larga duración y conexión rápida por Bluetooth 5.3.",
+    "categoria": "Audio"
+  },
+  {
+    "id": 2,
+    "nombre": "Mouse Gamer RGB",
+    "precio": 15999,
+    "imagen": "/images/mouse-gamer.jpg",
+    "descripcion": "Mouse ergonómico con sensor óptico de alta precisión, luces RGB configurables y hasta 6 botones programables. Ideal para gaming competitivo.",
+    "categoria": "Periféricos"
+  },
+  {
+    "id": 3,
+    "nombre": "Teclado Mecánico Retroiluminado",
+    "precio": 28999,
+    "imagen": "/images/teclado.jpg",
+    "descripcion": "Teclado mecánico con switches rojos silenciosos, diseño compacto TKL y retroiluminación RGB personalizable. Construido en aluminio.",
+    "categoria": "Periféricos"
+  },
+  {
+    "id": 4,
+    "nombre": "Smartwatch Deportivo",
+    "precio": 33999,
+    "imagen": "/images/smartwatch.jpg",
+    "descripcion": "Reloj inteligente resistente al agua con monitoreo cardíaco, seguimiento de pasos, GPS y pantalla AMOLED de alta definición.",
+    "categoria": "Wearables"
+  },
+  {
+    "id": 5,
+    "nombre": "Cámara Web Full HD 1080p",
+    "precio": 22999,
+    "imagen": "/images/webcam.jpg",
+    "descripcion": "Cámara con micrófono incorporado, corrección automática de luz y soporte universal. Ideal para videollamadas, streaming o clases online.",
+    "categoria": "Video"
+  },
+  {
+    "id": 6,
+    "nombre": "Soporte de Notebook Ajustable",
+    "precio": 11999,
+    "imagen": "/images/soporte.jpg",
+    "descripcion": "Soporte metálico regulable en altura, compatible con notebooks de hasta 17 pulgadas. Mejora la postura y la ventilación del equipo.",
+    "categoria": "Accesorios"
+  }
+]
