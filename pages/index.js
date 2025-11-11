@@ -1,4 +1,5 @@
 // pages/index.js
+"use client";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,8 +11,7 @@ const texts = {
     heroTitle: "Tecnología con estilo",
     heroSubtitle1:
       "Equipos, accesorios y soluciones tech diseñadas para simplificar tu vida digital.",
-    heroSubtitle2:
-      "Innovación, diseño y potencia — todo en un solo lugar.",
+    heroSubtitle2: "Innovación, diseño y potencia — todo en un solo lugar.",
     cta: "Ver productos",
   },
   en: {
@@ -23,7 +23,7 @@ const texts = {
   },
 };
 
-// ✅ productos definidos directo en el código (persisten en Vercel)
+// ✅ Productos cargados directamente
 const productos = [
   {
     id: 1,
@@ -42,8 +42,7 @@ const productos = [
   {
     id: 3,
     title: "Teclado Mecánico Retroiluminado",
-    description:
-      "Diseño compacto con switches silenciosos y luz ajustable.",
+    description: "Diseño compacto con switches silenciosos y luz ajustable.",
     price: 28999,
     image: "/images/teclado.jpg",
   },
@@ -76,6 +75,7 @@ export default function Home() {
 
         <ShippingCalculator lang={lang} />
 
+        {/* 🛍️ Sección de productos */}
         <section
           id="productos"
           className="flex flex-wrap justify-center gap-8 mt-12"
@@ -84,6 +84,7 @@ export default function Home() {
             productos.map((p) => (
               <ProductCard
                 key={p.id}
+                id={p.id} // ✅ se pasa el id
                 title={p.title}
                 price={p.price}
                 image={p.image}
