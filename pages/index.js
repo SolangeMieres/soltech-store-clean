@@ -129,6 +129,109 @@ Batería 5000 mAh con carga rápida de 18 W y sistema HiOS basado en Android 14 
     image: "/images/celutekno.jpg"
   },
 
+   {
+    id: 11,
+    title: "Playstation 5 PS5 Digital Bundle 2 Astro+GT7",
+    description: `Incluye PS5 Digital Slim 1 TB SSD, control inalámbrico DualSense, cables HDMI/CA/USB, ASTROs Playroom preinstalado y cupones digitales para Gran Turismo 7 y ASTRO BOT.
+Diseño compacto y elegante, sin lector de discos, con carga ultrarrápida y rendimiento fluido.
+Ofrece gráficos 4K, audio 3D, gatillos adaptativos y retrocompatibilidad con +4000 juegos de PS4 para una experiencia de juego inmersiva y completa.`,
+    price: 1600000,
+    image: "/images/play5.jpg"
+  },
+
+{
+    id: 12,
+    title: "Lavarropas Semiautomático 6 kg Wanke",
+    description: `Lavarropas semiautomático de carga superior con capacidad de 6 kg y motor de 200 W, eficiente y de bajo consumo.
+Cuenta con sistema de lavado por turbina, 4 programas, temporizador incorporado y opción de uso con o sin pedestal.
+Diseño compacto y liviano (50×85,5×61 cm, 9,4 kg), ideal para espacios reducidos. Fabricado en Brasil.`,
+    price: 190000,
+    image: "/images/lavafranke.jpg"
+  },
+
+{
+    id: 13,
+    title: "Secadora Por Calor Kanjihome 4kg",
+    description: `Secadora por calor de 4 kg con potencia de 1250 W y 3 programas de secado.
+Diseño compacto y liviano (42×49×55 cm), ideal para espacios reducidos.
+Cuenta con protección IPX4, eficiencia energética D y 12 meses de garantía. Fabricada en Argentina, color blanco.`,
+    price: 300000,
+    image: "/images/secakanji.jpg"
+  },
+
+{
+    id: 14,
+    title: "Lavarropas Philco 5.5 Kg Carga Superior Gris",
+    description: `Lavarropas automático de carga superior con capacidad de 5,5 kg y 10 programas de lavado.
+Ofrece centrifugado de 750 RPM, eficiencia energética A y sistema de lavado oriental, que cuida las prendas con suavidad.
+Diseño compacto y moderno en color gris, ideal para optimizar espacio y consumo.`,
+    price: 330000,
+    image: "/images/lavaphilco.jpg"
+  },
+
+{
+    id: 15,
+    title: "Heladera Bajo Mesada 126 Litros Negra Hisense",
+    description: `Heladera bajo mesada de 126 litros, ideal para espacios reducidos o como complemento.
+Diseño compacto y elegante en color negro, con control mecánico, puerta reversible, almacenamiento para botellas de 2 L, zona fría y bajo nivel de ruido.
+Incluye patas ajustables, luz interior y 12 meses de garantía.`,
+    price: 360000,
+    image: "/images/helahisense.jpg"
+  },
+
+  {
+    id: 16,
+    title: "Heladera Cíclica Admiral AD-HL DF2-285-1 208 Lts Blanca",
+    description: `Heladera compacta y elegante en color blanco, ideal para cocina, oficina o dormitorio.
+Cuenta con estantes desmontables, cajón para frutas y verduras y anaqueles para botellas.
+Ofrece capacidad neta de 207 L y sistema de enfriamiento cíclico que mantiene los alimentos frescos con eficiencia y temperatura constante.`,
+    price: 450000,
+    image: "/images/helaadmiral.jpg"
+  },
+
+    {
+    id: 17,
+    title: "Celular Samsung Galaxy A06 128GB Negro",
+    description: `Diseño fino y elegante (8 mm) con pantalla HD+ de 6,7" para una experiencia visual brillante.
+Rendimiento fluido gracias al procesador MediaTek G85, 4 GB RAM y 128 GB de almacenamiento, ampliable hasta 1 TB.
+Cámara trasera doble de 50 MP + 2 MP y frontal de 8 MP para fotos nítidas.
+Batería 5000 mAh con carga rápida de 25 W, sensor de huella lateral y seguridad avanzada Samsung Knox Vault.`,
+    price: 260000,
+    image: "/images/samsunga06.jpg"
+  },
+
+    {
+    id: 18,
+    title: "Smartphone reacondicionado Apple iPhone 12 Mini 64GB rojo desbloqueado",
+    description: `iPhone 12 Mini desbloqueado, compatible con todas las operadoras GSM y CDMA.
+Incluye cable de carga MFi, sin auriculares ni SIM.
+Producto reacondicionado Grado A, en excelente estado, con batería al 80 % mínimo.
+Entrega estimada: 25 días.`,
+    price: 470000,
+    image: "/images/iphone12.jpg"
+  },
+
+{
+    id: 19,
+    title: "Cafetera de Filtro Peabody",
+    description: `Cafetera de filtro con capacidad de 1,5 L y jarra de vidrio.
+Incluye filtro permanente lavable, luz indicadora, y función “Keep Warm” para mantener el café caliente.
+Diseño moderno con detalles en acero inoxidable, tanque transparente con medidor de agua y sistema anti-goteo.`,
+    price: 60000,
+    image: "/images/cafepea.jpg"
+  },
+
+
+{
+    id: 20,
+    title: "Ventilador de Techo Telefunken",
+    description: `Ventilador de techo con aspas retráctiles transparentes y diseño moderno.
+Incluye control remoto, timer programable y 6 velocidades.
+Ofrece función de recirculación de aire caliente en invierno, ideal para usar todo el año.
+Silencioso, eficiente y elegante, brinda máximo confort con estilo.`,
+    price: 150000,
+    image: "/images/ventitecho.jpg"
+  },
 
 ];
 
