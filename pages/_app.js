@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
 
       {/* 💬 Burbuja flotante tech-cyan animada */}
       <a
-        href="https://wa.me/54911XXXXXXXX?text=Buen%20día%20SOLtech!%20Quisiera%20consultar%20por%20un%20producto."
+        href="https://wa.me/5491132905944?text=Hola%20SOLtech!%20Quiero%20consultar%20por%20un%20producto."
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-5 right-5 z-50 bg-cyan-500 hover:bg-cyan-400 text-white rounded-full p-4 shadow-lg shadow-cyan-500/30 transition-all duration-300 hover:scale-110 border border-cyan-300/40 animate-pulse"

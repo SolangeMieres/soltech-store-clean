@@ -95,3 +95,31 @@ export async function getServerSideProps() {
     return { props: { products: [] } };
   }
 }
+const productos = [
+  {
+    id: 1,
+    title: "Auriculares Bluetooth",
+    description: "Auriculares con cancelación de ruido y micrófono integrado.",
+    price: 25000,
+    image: "/images/auriculares.jpg",
+  },
+  {
+    id: 2,
+    title: "Mouse Gamer RGB",
+    description: "Mouse ergonómico con luces RGB y alta precisión.",
+    price: 15999,
+    image: "/images/mouse.jpg",
+  },
+  {
+    id: 3,
+    title: "Teclado Mecánico Retroiluminado",
+    description: "Diseño compacto con switches silenciosos y luz ajustable.",
+    price: 28999,
+    image: "/images/teclado.jpg",
+  },
+];
+export { productos };
+
+// components/Footer.js
+import { useState } from "react";
+    
