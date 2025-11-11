@@ -35,57 +35,10 @@ const productos = [
   {
     id: 2,
     title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020",
-    description: `Procesador
-Procesador
-Celeron Pad
-Memoria
-Disco SSD
-128 GB
-RAM
-4 GB
-Tipo de disco
-SSD
-Sistema Operativo
-Sistema operativo
-Windows
-Imagen
-Pantalla
-14.1
-Pantalla táctil
-No
-Tecnología de pantalla
-LCD
-Conectividad
-Wi-Fi
-Sí
-Puertos usb
-2 Puertos USB
-Puerto HDMI
-1 Puerto HDMI
-Bluetooth
-Sí
-Detalles
-Camara
-Sí
-Teclado numérico
-No
-Teclado retroiluminado
-No
-Color
-Negro
-Dimensiones
-Medidas
-38 x 9,4 x 27,7 cm
-Peso
-2.12 Kg
-Batería
-Batería
-5000 mAh
-Modelo y origen
-Modelo
-94N14P4020
-Origen
-China`,
+    description: `La Philco N4020 con Windows 11 Home y batería de 5000 mAh ofrece autonomía ideal para trabajo, estudio o entretenimiento.
+Su pantalla LCD 14,1" brinda colores vivos y gran definición.
+Cuenta con puertos USB y HDMI para conectar fácilmente otros dispositivos.
+Con SSD 128 GB, 4 GB RAM y procesador Celeron PAD, garantiza un rendimiento rápido y estable para tus tareas diarias.`,
     price: 300000,
     image: "/images/notebook.jpg",
   },
@@ -101,6 +54,39 @@ Tope de profundidad, permitiendo perforaciones exactas sin exceder el nivel dese
     price: 70000,
     image: "/images/taladro.jpg"
   }
+
+  {
+    id: 4,
+    title: "Smart TV Led 32\" Philips",
+    description: `Controlá tu TV por voz con Alexa, Google o la app Matter Smart Home.
+El sistema Titan OS ofrece acceso rápido a tus apps y contenido favorito.
+Con Dolby Audio, disfrutá un sonido claro y envolvente en cada escena.`,
+    price: 300000,
+    image: "/images/ledphilips.jpg"
+  }
+
+ {
+    id: 5,
+    title: "Freidora de Aire Peabody PE-AFW520N 5,2Lts",
+    description: `Cociná de forma saludable y sin aceite gracias a su sistema de convección que deja los alimentos crujientes por fuera y tiernos por dentro.
+Incluye 8 programas preestablecidos, display LED touch, ventana frontal con luz interna y capacidad de 5,2 L.
+Con 1500 W de potencia, temperatura regulable de 60 °C a 200 °C, función mantener caliente, apagar/reanudar automático y recipiente antiadherente, ideal para cocinar fácil, rápido y sin humo.`,
+    price: 85000,
+    image: "/images/freidorapeabody.jpg"
+  }
+
+ {
+    id: 6,
+    title: "Mopa Plana Trapeador Lampazo con Balde Enjuague y Secado Beige Waggs",
+    description: `Mopa con balde de doble ranura para enjuagar y secar sin esfuerzo, ideal para limpieza en húmedo o en seco.
+Incluye botón de desagüe, materiales duraderos y diseño práctico para pisos, techos y ventanas.
+Medidas: bastón 1,30 m / balde 36 × 19 × 21 cm.`,
+    price: 40000,
+    image: "/images/mops.jpg"
+  }
+
+
+
 ];
 
 export default function Home() {
