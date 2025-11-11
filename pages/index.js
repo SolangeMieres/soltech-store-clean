@@ -82,7 +82,53 @@ Incluye botón de desagüe, materiales duraderos y diseño práctico para pisos,
 Medidas: bastón 1,30 m / balde 36 × 19 × 21 cm.`,
     price: 40000,
     image: "/images/mops.jpg"
-  }
+  },
+
+  {
+    id: 7,
+    title: "Termo Wanderlust Verde 1300ml Acero Inoxidable c/ Pico Cebador Mate",
+    description: `Marca: Wanderlust 
+Material: acero,
+Capacidad:1.3 litros
+mantiene la temperatura por 12 hs 
+Incluye Tapón cebador. 
+Wander Tip: La tapa es multiuso, podés usarlo como vaso o mate.`,
+    price: 45000,
+    image: "/images/termo.jpg"
+  },
+
+   {
+    id: 8,
+    title: "Desmalezadora Motoguadaña Naftera 52cc",
+    description: `Desmalezadora KLD 52cc con motor 2 tiempos de 1650W, eje recto y transmisión cardánica.
+Ofrece ancho de corte de 230 mm, cuchilla de 3 puntas, cabezal doble salida y arnés reforzado.
+Ideal para bordes, esquinas y zonas difíciles, con diseño ergonómico y arranque manual con cebador para un uso cómodo y eficiente.`,
+    price: 130000,
+    image: "/images/desmalezadora.jpg"
+  },
+
+
+ {
+    id: 9,
+    title: "Aire Acondicionado Sansei Split Frio/calor 2365 Frigorías Blanco",
+    description: `Aire acondicionado Split frío/calor de 2365 frigorías, con eficiencia energética clase A y gas R410a.
+Ofrece 2750W en frío y 2500W en calor, con bajo nivel de ruido (51 dB) y funciones temporizador y modo sueño.
+Diseño compacto, ideal para uso doméstico, con 12 meses de garantía.`,
+    price: 750000,
+    image: "/images/airesensei.jpg"
+  },
+
+ {
+    id: 10,
+    title: "Celular Tecno Spark 30C 128GB Orbit Black",
+    description: `Diseño elegante y liviano, con cámaras traseras circulares y estilo premium.
+Pantalla 6,67" con frecuencia de 60 Hz a 120 Hz para una experiencia fluida.
+Cámara principal de 50 MP y frontal de 8 MP para fotos y videollamadas de alta calidad.
+Batería 5000 mAh con carga rápida de 18 W y sistema HiOS basado en Android 14 con procesador Helio G81 para un rendimiento ágil y eficiente.`,
+    price: 190000,
+    image: "/images/celutekno.jpg"
+  },
+
 
 ];
 
