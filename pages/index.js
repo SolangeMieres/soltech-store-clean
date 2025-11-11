@@ -45,27 +45,26 @@ Con SSD 128 GB, 4 GB RAM y procesador Celeron PAD, garantiza un rendimiento ráp
   {
     id: 3,
     title: "Taladro Percutor 750w Daewoo DAID750BX 13mm Impacto",
-    description: `Mango lateral para un mejor control y estabilidad.
-Diámetro de mandril de 13 mm, compatible con una amplia variedad de brocas.
+    description: `Mango lateral para un mejor control y estabilidad.Diámetro de mandril de 13 mm, compatible con una amplia variedad de brocas.
 
 Incluye llave de mandril para ajustes firmes y seguros.
 
 Tope de profundidad, permitiendo perforaciones exactas sin exceder el nivel deseado.`,
     price: 70000,
     image: "/images/taladro.jpg"
-  }
+  }, // <-- comma added here
 
   {
     id: 4,
-    title: "Smart TV Led 32\" Philips",
+    title: "Smart TV Led 32 Philips",
     description: `Controlá tu TV por voz con Alexa, Google o la app Matter Smart Home.
 El sistema Titan OS ofrece acceso rápido a tus apps y contenido favorito.
 Con Dolby Audio, disfrutá un sonido claro y envolvente en cada escena.`,
     price: 300000,
     image: "/images/ledphilips.jpg"
-  }
+  }, // <-- comma added here
 
- {
+  {
     id: 5,
     title: "Freidora de Aire Peabody PE-AFW520N 5,2Lts",
     description: `Cociná de forma saludable y sin aceite gracias a su sistema de convección que deja los alimentos crujientes por fuera y tiernos por dentro.
@@ -73,9 +72,9 @@ Incluye 8 programas preestablecidos, display LED touch, ventana frontal con luz 
 Con 1500 W de potencia, temperatura regulable de 60 °C a 200 °C, función mantener caliente, apagar/reanudar automático y recipiente antiadherente, ideal para cocinar fácil, rápido y sin humo.`,
     price: 85000,
     image: "/images/freidorapeabody.jpg"
-  }
+  }, // <-- comma added here
 
- {
+  {
     id: 6,
     title: "Mopa Plana Trapeador Lampazo con Balde Enjuague y Secado Beige Waggs",
     description: `Mopa con balde de doble ranura para enjuagar y secar sin esfuerzo, ideal para limpieza en húmedo o en seco.
@@ -84,8 +83,6 @@ Medidas: bastón 1,30 m / balde 36 × 19 × 21 cm.`,
     price: 40000,
     image: "/images/mops.jpg"
   }
-
-
 
 ];
 
