@@ -233,6 +233,221 @@ Silencioso, eficiente y elegante, brinda máximo confort con estilo.`,
     image: "/images/ventitecho.jpg"
   },
 
+{
+    id: 21,
+    title: "Celular Galaxy A16 4G Blue Black",
+    description: `Celular con pantalla Super AMOLED de 6,7" FHD+, que ofrece colores vibrantes y gran definición.
+Incluye 128 GB de almacenamiento interno y 4 GB de RAM para un rendimiento ágil y fluido.`,
+    price: 400000,
+    image: "/images/samsunga16.jpg"
+  },
+
+  {
+    id: 22,
+    title: "Celular Motorola G15 4GB 128GB Gravity Grey",
+    description: `Rendimiento fluido con 4 GB de RAM y 128 GB de almacenamiento.
+Batería 5200 mAh para usarlo todo el día sin preocupaciones.
+Cámara trasera 50 MP + 5 MP y frontal 8 MP para fotos y videos nítidos.
+Pantalla 6,72" FHD+, ideal para redes, videos y contenido multimedia con excelente calidad.`,
+    price: 340000,
+    image: "/images/motorolag15.jpg"
+  },
+
+  {
+    id: 23,
+    title: "Celular ZTE Blade A35 64GB Black",
+    description: `Batería 5000 mAh para usarlo todo el día.
+Cámara trasera 8 MP + AI con flash y frontal 5 MP para selfies y videollamadas.
+Pantalla IPS HD+ de 6,75", con colores nítidos y buenos ángulos de visión.
+Incluye 2 GB RAM y 64 GB de almacenamiento, ampliables hasta 1 TB con tarjeta externa.`,
+    price: 150000,
+    image: "/images/ztea35.jpg"
+  },
+
+{
+    id: 24,
+    title: "Smart TV Samsung 50 LED Crystal UHD 4K ",
+    description: `Imagen vibrante con PurColor y procesador Crystal 4K, que mejora colores y contenido hasta resolución 4K.
+Sonido más inmersivo gracias a Q-Symphony, que combina TV + barra de sonido sin silenciar parlantes.
+Diseño minimalista y prácticamente sin bordes, ideal para un hogar moderno.
+Sistema Tizen OS con apps actualizadas, Samsung TV Plus, Gaming Hub, Daily+ y control de dispositivos inteligentes vía SmartThings.`,
+    price: 690000,
+    image: "/images/samsungDU7000.jpg"
+  },
+
+{
+    id: 25,
+    title: "Bicicleta Mtb Rydetech 300 Mountain Bike R29 21v Talle L Negro/Naranja ",
+    description: `Bicicleta robusta y cómoda, con cuadro de acero hidroformado, horquilla con suspensión de 80 mm y llantas de aluminio doble pared.
+Equipada con 21 velocidades, piñón SunRun y shifters integrados para cambios suaves.
+Cuenta con frenos V-Brake, cubiertas Wanda 29x2.10, asiento MTB con cierre rápido y pedales Neco.
+Ideal para aventuras urbanas y off-road, ofreciendo durabilidad, agarre y control en todo tipo de terrenos.`,
+    price: 300000,
+    image: "/images/bici.jpg"
+  },
+
+{
+    id: 26,
+    title: "Bicicleta Infantil Nathor R16 Apollo",
+    description: `Bici rodado 16 con limitador de giro, asiento y manubrio regulables, y freno trasero con maneta amarilla para fácil identificación.
+Incluye roditas laterales desmontables, neumáticos con cámara y frenos V-Brake reforzados.
+Ideal para peques de 5 años en adelante (110–120 cm), soporta hasta 30 kg y pesa 9,5 kg.
+Segura, resistente y perfecta para aprender a andar con confianza.`,
+    price: 200000,
+    image: "/images/bici1.jpg"
+  },
+
+{
+    id: 27,
+    title: "Auriculares Admiral AD-F9 Negro",
+    description: `Auriculares Bluetooth 5.3 con conexión rápida y estable, diseño in-ear cómodo y liviano.
+Ofrecen 5–6 horas de reproducción por carga y un estuche de 800 mAh que extiende la autonomía hasta 650 horas en espera.
+Alcance de 10–20 metros, carga completa en 1–2 horas y excelente calidad de sonido gracias a su driver de 8 mm.`,
+    price: 15000,
+    image: "/images/auriadm.jpg"
+  },
+
+{
+    id: 28,
+    title: "Auricular Aiwa TWA-80B Blanco",
+    description: `Auriculares in-ear Bluetooth con micrófono, control de volumen, control de canciones y touch multifunción.
+Incluyen estuche de carga, cable USB-C y manual.
+Modelo TWA-80B, origen China. Ideal para uso diario con conectividad inalámbrica cómoda y práctica.`,
+    price: 20000,
+    image: "/images/auriaiwa.jpg"
+  },
+
+
+{
+    id: 29,
+    title: "Aspiradora Trapeadora Robot Sansei Blanco",
+    description: `Aspiradora robot 2 en 1 que aspira y trapea con depósito de polvo de 200 ml y tanque de agua de 230 ml.
+Incluye filtro HEPA, ideal para reducir alérgenos, y batería de 2000 mAh con autonomía para limpiar hasta 120 m², volviendo sola a su base.
+Ofrece 4 modos de limpieza (automático, espiral, esquinas y zig-zag), control remoto, motor de 1400 Pa, sensores anti choque/anti caída y ruedas que superan obstáculos de hasta 15 mm.
+Perfecta para hogares con mascotas y múltiples superficies.`,
+    price: 210000,
+    image: "/images/aspisansei.jpg"
+  },
+
+{
+    id: 30,
+    title: "Pizarra Mágica 12 Color 3852",
+    description: `Pizarra LCD multicolor de 12,5", ideal para escribir y dibujar sin tiza ni marcadores.
+Permite borrar con un solo toque, es liviana y portátil.
+Incluye batería de litio recargable para largas horas de uso.
+Perfecta para notas rápidas, creatividad infantil o uso diario.`,
+    price: 9000,
+    image: "/images/pizzarra.jpg"
+  },
+
+ {
+    id: 31,
+    title: "Cuatriciclo a Batería Stark Naranja",
+    description: `Cuatri a batería 6V con diseño realista, luces y sonidos.
+Alcanza 3 km/h, soporta hasta 30 kg y ofrece 2 horas de uso aproximado.
+Incluye marcha adelante y atrás, ruedas plásticas y baúl trasero para guardar juguetes.
+Recomendado para peques de 2 a 4 años.
+Medidas: 65 × 45 × 50 cm.`,
+    price: 120000,
+    image: "/images/cuatri.jpg"
+  }, 
+
+{
+    id: 32,
+    title: "Cuatriciclo a Batería Stark Blanco",
+    description: `Cuatri a batería 6V con diseño realista, luces y sonidos.
+Alcanza 3 km/h, soporta hasta 30 kg y ofrece 2 horas de uso aproximado.
+Incluye marcha adelante y atrás, ruedas plásticas y baúl trasero para guardar juguetes.
+Recomendado para peques de 2 a 4 años.
+Medidas: 65 × 45 × 50 cm.`,
+    price: 120000,
+    image: "/images/cuatrib.jpg"
+  }, 
+
+{
+    id: 33,
+    title: "Mesa Didáctica Love Proyector de Unicornio",
+    description: `Mesa didáctica con proyector de unicornio, ideal para dibujar y aprender jugando.
+Incluye libro, 3 discos de proyección, 24 patrones, 12 lapiceras y paño de limpieza.
+Funciona con 3 pilas AA (no incluidas).
+No apta para menores de 3 años.`,
+    price: 40000,
+    image: "/images/mesauni.jpg"
+  }, 
+
+{
+    id: 34,
+    title: "Mesa Didáctica Love Proyector Dinosaurio",
+    description: `Mesa didáctica con proyector de dinosaurio, perfecta para dibujar y estimular la creatividad.
+Incluye libro, 3 discos de proyección, 24 patrones, 12 lapiceras y paño de limpieza.
+Funciona con 3 pilas AA (no incluidas).
+No apta para menores de 3 años.`,
+    price: 40000,
+    image: "/images/mesadino.jpg"
+  }, 
+
+{
+    id: 35,
+    title: "Lavasecarropas Philco 12/8KG Titanium Grey Carga Frontal Inverter Inox",
+    description: `Lavasecarropas 2 en 1 con 12 kg de lavado y 8 kg de secado, ideal para ahorrar tiempo y espacio.
+Incluye Motor Direct Drive Inverter (más silencioso, menos vibración, 5 años de garantía), lavado a vapor para higiene profunda y reducción de arrugas, y Tecnología One Touch que ajusta automáticamente agua y tiempos.
+Cuenta con programa rápido de 15 minutos, diseño Slim Fit, alto rendimiento y cuidado de las prendas.
+Garantía: 12 meses.`,
+    price: 1000000,
+    image: "/images/lavaseca.jpg"
+  }, 
+
+  {
+    id: 36,
+    title: "Inhalador Nebulizador De Malla Inalámbrico Portátil Ultrasónico",
+    description: `Nebulizador portátil y ultrasónico, ideal para aliviar afecciones respiratorias con menor ruido y mayor eficacia.
+Convierte el medicamento en vapor fino, permitiendo que llegue directo a las zonas afectadas.
+Es liviano, silencioso y perfecto para niños y adultos.
+Incluye boquilla, máscara para adultos, máscara para niños y cable USB. Ideal para reducir inflamación, mejorar la respiración y usar en cualquier lugar.`,
+    price: 25000,
+    image: "/images/nebu.jpg"
+  }, 
+
+
+{
+    id: 37,
+    title: "Vaporera Eléctrica 2 Niveles 14 Huevos",
+    description: `Vaporera de 2 niveles con capacidad para 14 huevos y espacio para cocinar vegetales.
+Incluye vaso medidor, plato de acero inoxidable y 2 repisas para huevos.
+Ofrece un flujo de vapor constante y parejo, ideal para una cocción rápida, saludable y sin complicaciones.`,
+    price: 43000,
+    image: "/images/vaporera.jpg"
+  }, 
+
+{
+    id: 38,
+    title: "Reloj Retro",
+    description: `Reloj estilo retro ochentoso con hora, alarma, cronómetro y luz.
+Un clásico nostálgico para llevar en la muñeca todos los días.`,
+    price: 20000,
+    image: "/images/reloj.jpg"
+  }, 
+
+{
+    id: 39,
+    title: "Maquina Para Cortar Perfilar Cabello Vintage T9 Buda Dorado",
+    description: `Cortadora inalámbrica ideal para perfilado y cortes precisos.
+Incluye 4 peines, batería recargable y accesorios como cepillos y peine limpiador.
+Apta para uso en casa o viaje, con diseño práctico y funcional para lograr el look que quieras.`,
+    price: 25000,
+    image: "/images/cortacabello.jpg"
+  }, 
+
+{
+    id: 40,
+    title: "Caja Impermeable Baño Celular Ducha 360 Grados Viral Tiktok",
+    description: `Soporte resistente al agua, ideal para usar el celular en la ducha sin mojarlo.
+Protege contra salpicaduras y vapor, y permite ver, escuchar o responder sin sacarlo del soporte.
+Instalación simple y diseño práctico, perfecto para usar en el baño con total comodidad y seguridad.`,
+    price: 22000,
+    image: "/images/cajaducha.jpg"
+  }, 
+
 ];
 
 export default function Home() {
