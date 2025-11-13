@@ -31,15 +31,167 @@ const texts = {
 
 // 🟦 Añadimos categoría a tus productos para que puedan filtrarse
 const productos = [
-  { id: 1, title: "Headset Gamer Aimzone negro…", description: "…", price: 25000, category: "Audio", image: "/images/auriculares.jpg" },
-  { id: 2, title: "Notebook Celeron 14.1 Philco", description: "…", price: 300000, category: "Computación", image: "/images/notebook.jpg" },
-  { id: 3, title: "Taladro Percutor Daewoo 750w", description: "…", price: 70000, category: "Herramientas", image: "/images/taladro.jpg" },
-  { id: 4, title: "Smart TV Led 32 Philips", description: "…", price: 300000, category: "TV", image: "/images/ledphilips.jpg" },
-  { id: 5, title: "Freidora Peabody 5.2L", description: "…", price: 85000, category: "Cocina", image: "/images/freidorapeabody.jpg" },
-  // … 👇👇👇 el resto de tus productos IGUAL, solo agregando "category"
-  // recomendación: categoría simple (Audio / Herramientas / Hogar / Niños / Celulares / etc)
-  // …
+  { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable AZ709",
+    description: "Filtros\nMicrófono\nSí…",
+    price: 25000, image: "/images/auriculares.jpg", category: "Audio" },
+
+  { id: 2, title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020",
+    description: `La Philco N4020…`,
+    price: 300000, image: "/images/notebook.jpg", category: "Computación" },
+
+  { id: 3, title: "Taladro Percutor 750w Daewoo DAID750BX",
+    description: `Mango lateral…`,
+    price: 70000, image: "/images/taladro.jpg", category: "Herramientas" },
+
+  { id: 4, title: "Smart TV Led 32 Philips",
+    description: `Controlá tu TV…`,
+    price: 300000, image: "/images/ledphilips.jpg", category: "TV" },
+
+  { id: 5, title: "Freidora de Aire Peabody PE-AFW520N 5,2Lts",
+    description: `Cociná de forma saludable…`,
+    price: 85000, image: "/images/freidorapeabody.jpg", category: "Cocina" },
+
+  { id: 6, title: "Mopa Plana Trapeador Lampazo",
+    description: `Mopa con balde…`,
+    price: 40000, image: "/images/mops.jpg", category: "Hogar" },
+
+  { id: 7, title: "Termo Wanderlust Verde 1300ml",
+    description: `Marca: Wanderlust…`,
+    price: 45000, image: "/images/termo.jpg", category: "Hogar" },
+
+  { id: 8, title: "Desmalezadora Motoguadaña Naftera 52cc",
+    description: `Desmalezadora KLD…`,
+    price: 130000, image: "/images/desmalezadora.jpg", category: "Herramientas" },
+
+  { id: 9, title: "Aire Acondicionado Sansei Split",
+    description: `Aire acondicionado…`,
+    price: 750000, image: "/images/airesensei.jpg", category: "Climatización" },
+
+  { id: 10, title: "Celular Tecno Spark 30C 128GB Orbit Black",
+    description: `Diseño elegante…`,
+    price: 190000, image: "/images/celutekno.jpg", category: "Celulares" },
+
+  { id: 11, title: "Playstation 5 PS5 Digital Bundle",
+    description: `Incluye PS5 Digital…`,
+    price: 1600000, image: "/images/play5.jpg", category: "Consolas" },
+
+  { id: 12, title: "Lavarropas Semiautomático 6 kg Wanke",
+    description: `Lavarropas semiautomático…`,
+    price: 190000, image: "/images/lavafranke.jpg", category: "Lavarropas" },
+
+  { id: 13, title: "Secadora Por Calor Kanjihome 4kg",
+    description: `Secadora por calor…`,
+    price: 300000, image: "/images/secakanji.jpg", category: "Secarropas" },
+
+  { id: 14, title: "Lavarropas Philco 5.5 Kg",
+    description: `Lavarropas automático…`,
+    price: 330000, image: "/images/lavaphilco.jpg", category: "Lavarropas" },
+
+  { id: 15, title: "Heladera Bajo Mesada Hisense 126L",
+    description: `Heladera bajo mesada…`,
+    price: 360000, image: "/images/helahisense.jpg", category: "Heladeras" },
+
+  { id: 16, title: "Heladera Cíclica Admiral 208 Lts",
+    description: `Heladera compacta…`,
+    price: 450000, image: "/images/helaadmiral.jpg", category: "Heladeras" },
+
+  { id: 17, title: "Celular Samsung Galaxy A06 128GB",
+    description: `Diseño fino…`,
+    price: 260000, image: "/images/samsunga06.jpg", category: "Celulares" },
+
+  { id: 18, title: "iPhone 12 Mini 64GB reacondicionado",
+    description: `iPhone 12 Mini desbloqueado…`,
+    price: 470000, image: "/images/iphone12.jpg", category: "Celulares" },
+
+  { id: 19, title: "Cafetera de Filtro Peabody",
+    description: `Cafetera de filtro…`,
+    price: 60000, image: "/images/cafepea.jpg", category: "Cocina" },
+
+  { id: 20, title: "Ventilador de Techo Telefunken",
+    description: `Ventilador de techo…`,
+    price: 150000, image: "/images/ventitecho.jpg", category: "Climatización" },
+
+  { id: 21, title: "Celular Samsung Galaxy A16 4G",
+    description: `Celular con pantalla…`,
+    price: 400000, image: "/images/samsunga16.jpg", category: "Celulares" },
+
+  { id: 22, title: "Celular Motorola G15 4GB 128GB",
+    description: `Rendimiento fluido…`,
+    price: 340000, image: "/images/motorolag15.jpg", category: "Celulares" },
+
+  { id: 23, title: "Celular ZTE Blade A35 64GB",
+    description: `Batería 5000 mAh…`,
+    price: 150000, image: "/images/ztea35.jpg", category: "Celulares" },
+
+  { id: 24, title: "Smart TV Samsung 50” UHD 4K",
+    description: `Imagen vibrante…`,
+    price: 690000, image: "/images/samsungDU7000.jpg", category: "TV" },
+
+  { id: 25, title: "Bicicleta MTB Rydetech 300 R29",
+    description: `Bicicleta robusta…`,
+    price: 300000, image: "/images/bici.jpg", category: "Bicicletas" },
+
+  { id: 26, title: "Bicicleta Infantil Nathor R16",
+    description: `Bici rodado 16…`,
+    price: 200000, image: "/images/bici1.jpg", category: "Bicicletas" },
+
+  { id: 27, title: "Auriculares Admiral AD-F9 Negro",
+    description: `Auriculares Bluetooth…`,
+    price: 15000, image: "/images/auriadm.jpg", category: "Audio" },
+
+  { id: 28, title: "Auricular Aiwa TWA-80B Blanco",
+    description: `Auriculares in-ear…`,
+    price: 20000, image: "/images/auriaiwa.jpg", category: "Audio" },
+
+  { id: 29, title: "Aspiradora Robot Sansei",
+    description: `Aspiradora robot 2 en 1…`,
+    price: 210000, image: "/images/aspisansei.jpg", category: "Hogar" },
+
+  { id: 30, title: "Pizarra Mágica 12\"",
+    description: `Pizarra LCD multicolor…`,
+    price: 9000, image: "/images/pizzarra.jpg", category: "Juguetes" },
+
+  { id: 31, title: "Cuatriciclo Stark Naranja 6V",
+    description: `Cuatri a batería…`,
+    price: 120000, image: "/images/cuatri.jpg", category: "Juguetes" },
+
+  { id: 32, title: "Cuatriciclo Stark Blanco 6V",
+    description: `Cuatri a batería…`,
+    price: 120000, image: "/images/cuatrib.jpg", category: "Juguetes" },
+
+  { id: 33, title: "Mesa Didáctica Unicornio",
+    description: `Mesa didáctica unicornio…`,
+    price: 40000, image: "/images/mesauni.jpg", category: "Juguetes" },
+
+  { id: 34, title: "Mesa Didáctica Dinosaurio",
+    description: `Mesa didáctica dino…`,
+    price: 40000, image: "/images/mesadino.jpg", category: "Juguetes" },
+
+  { id: 35, title: "Lavasecarropas Philco 12/8KG",
+    description: `Lavasecarropas 2 en 1…`,
+    price: 1000000, image: "/images/lavaseca.jpg", category: "Lavarropas" },
+
+  { id: 36, title: "Nebulizador Ultrasónico",
+    description: `Nebulizador portátil…`,
+    price: 25000, image: "/images/nebu.jpg", category: "Salud" },
+
+  { id: 37, title: "Vaporera Eléctrica 2 niveles",
+    description: `Vaporera de 2 niveles…`,
+    price: 43000, image: "/images/vaporera.jpg", category: "Cocina" },
+
+  { id: 38, title: "Reloj Retro",
+    description: `Reloj estilo retro…`,
+    price: 20000, image: "/images/reloj.jpg", category: "Accesorios" },
+
+  { id: 39, title: "Máquina Cortapelo Vintage T9",
+    description: `Cortadora inalámbrica…`,
+    price: 25000, image: "/images/cortacabello.jpg", category: "Belleza" },
+
+  { id: 40, title: "Caja Impermeable Baño Celular",
+    description: `Soporte resistente al agua…`,
+    price: 22000, image: "/images/cajaducha.jpg", category: "Hogar" },
 ];
+
 
 // --------------------------------------------
 
