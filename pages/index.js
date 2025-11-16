@@ -31,8 +31,8 @@ const texts = {
 
 // 🟦 Añadimos categoría a tus productos para que puedan filtrarse
 const productos = [
-  { id: 1, title: "Auriculares Gamer con Sonido Envolvente y Drivers de $50\text{ mm}$. Micrófono desmontable. Máxima comodidad y compatibilidad universal (PC/Consolas) con iluminación LED azul.",
-    description: "Filtros\nMicrófono\nSí…",
+  { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable",
+    description: "Audio Premium: Drivers de $50\text{ mm}$ con sonido envolvente y cristalino.Micrófono: Desmontable y omnidireccional, para comunicación clara en juegos o llamadas.Comodidad: Diseño Over-Ear con orejeras de espuma viscoelástica para aislamiento de ruido y diadema ajustable.Compatibilidad: Universal (PC, Laptop, Xbox, Switch, PS) con doble interfaz USB + Jack $3.5\text{ mm}$.Extras: Detalles LED y control de volumen integrado.",
     price: 25000, image: "/images/auriculares.jpg", category: "Audio" },
 
   { id: 2, title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020",
