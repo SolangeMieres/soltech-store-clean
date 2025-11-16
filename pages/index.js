@@ -211,14 +211,46 @@ Accesorios: Incluye boquilla, máscaras para adultos y niños, y cable USB.`,
 
   { id: 40, title: "Caja Impermeable Baño Celular",
     description: `Uso: Diseñado para mantener tu teléfono seguro y seco en ambientes húmedos (ducha, baño).
-
 Material: Fabricado con materiales resistentes al agua y al vapor.
-
 Funcionalidad: Permite escuchar música, ver videos o responder llamadas sin riesgo.
-
 Instalación: Diseño práctico y de fácil instalación.`,
     price: 22000, image: "/images/cajaducha.jpg", category: "Hogar" },
+
+
+  { id: 41, title: "Lámpara De Medusas Led Rgb Nocturna Flotante Recargable Usb Rgb",
+    description: `Diseño Único: Presenta una medusa suspendida en una base acrílica transparente.
+
+Ambiente: Emite una luz suave y relajante, ideal para decorar el hogar u oficina.
+
+Estilo: Combina arte y funcionalidad, dando un toque especial y moderno a cualquier espacio.`,
+    price: 25000, image: "/images/medusa.jpg", category: "Hogar" },
+
+  { id: 42, title: "Mini Pistola Masajeadora Lesiones Musculares Rehabilitación",
+    description: `Uso: Terapia de vibración profunda, ideal para lesiones musculares, rehabilitación y relajación corporal.Rendimiento: Hasta $2500\text{ RPM}$ para un masaje efectivo y profundo.Ajustes: Función de $3\text{ velocidades}$ para control gradual de intensidad.Batería: $800\text{ mAh}$. Ofrece $60\text{ minutos}$ de uso con solo $2\text{ horas}$ de carga.Portabilidad: Fabricada en ABS (ligera y súper pequeña).Incluye: $1\text{ cabeza de masaje}$ y Cable USB de carga.`,
+    price: 25000, image: "/images/masaje.jpg", category: "Hogar" },
+
+{ id: 43, title: "Trapeador Escurridor Ajustable Mopa Esponja Hogar Compacta",
+    description: `Funcionalidad: Sistema de escurrido manual que elimina el exceso de agua fácilmente.
+
+Beneficio: Permite dejar el piso seco y limpio rápidamente.
+
+Comodidad: Diseño ergonómico, práctico y fabricado con materiales duraderos para uso diario.`,
+    price: 40000, image: "/images/trapeaescurri.jpg", category: "Hogar" },
+
+
+    { id: 44, title: "Organizador De Remeras Y Ropa Premium Rigido",
+    description: `Función: Diseñado para clasificar remeras y ropa de manera eficiente, manteniendo las prendas en perfecto estado y a la vista.
+Beneficio: Ahorra tiempo al elegir el outfit diario y optimiza el espacio en armarios, cajones o estanterías.
+Calidad: Materiales rígidos que garantizan durabilidad y resistencia para el uso diario.
+Nota: Color sujeto a disponibilidad.`,
+    price: 4000, image: "/images/organiza.jpg", category: "Hogar" },
+
+    { id: 45, title: "Aire Acondicionado Inverter Admiral",
+    description: `Tecnología Clave: Inverter para ahorro de energía, regulación automática de potencia y menor ruido.Capacidad: Frío/Calor. Potencia de $2300\text{ frigorías}$ ($2700\text{ W}$).Funciones: Incluye Control Remoto, Deflectores Móviles, Timer y funciones Automática/Ventilación.Beneficio: Enfría o calienta ambientes de manera rápida y eficiente.Dimensiones (Int.): $72.9\text{ cm}$ (ancho) $\times 29.2\text{ cm}$ (alto) $\times 20\text{ cm}$ (profundidad).`,
+    price: 700000, image: "/images/aireadmiral.jpg", category: "Climatización" },
+
 ];
+
 
 
 // --------------------------------------------
