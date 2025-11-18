@@ -53,7 +53,7 @@ Sonido Dolby Audio: Disfrutá de un audio claro y potente, ideal para diálogos,
 
   { id: 5, title: "Freidora de Aire Peabody PE-AFW520N 5,2Lts",
     description: `Gran Capacidad: $5.2\text{ Lts}$ y $1500\text{ W}$ de potencia.Fácil de Usar: Panel LED touch con 8 programas preestablecidos (Papas, Carnes, Pescados, Vegetales, etc.) más función manual.Control Visual: Cuenta con ventana frontal y luz interna para monitorear la cocción sin abrir el cajón.Funciones Extra: Incluye Precalentar y Mantener Caliente (hasta $1\text{ hr}$).Limpieza Sencilla: Recipiente antiadherente y rejilla extraíble.Saludable: Cocción por convección (aire caliente) sin humo ni olor.`,
-    price: 90000, image: "/images/freidorapeabody.jpg", category: "Cocina" },
+    price: 110000, image: "/images/freidorapeabody.jpg", category: "Cocina" },
 
   { id: 6, title: "Mopa Plana Trapeador Lampazo",
     description: `Mopa con balde…Limpieza Sencilla: Balde con doble ranura para enjuague y secado rápido sin cambiar la almohadilla.Uso Versátil: Ideal para uso en húmedo (trapear) o seco (desempolvar) pisos, techos y ventanas.Diseño Inteligente: Incluye botón de desagüe en el balde para vaciado fácil.Dimensiones: Bastón de $1.30\text{ m}$ de alto; Balde $36\text{ cm}$ x $19\text{ cm}$ x $21\text{ cm}$.`,
