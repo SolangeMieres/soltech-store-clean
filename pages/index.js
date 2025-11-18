@@ -33,7 +33,7 @@ const texts = {
 const productos = [
   { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable",
     description: "Audio Premium: Drivers de 50 mm con sonido envolvente y cristalino. Micrófono: Desmontable y omnidireccional para comunicación clara. Comodidad: Diseño Over-Ear con orejeras de espuma viscoelástica para aislamiento de ruido. Compatibilidad: Universal (PC, Consolas) con doble interfaz USB + Jack 3.5 mm. Extras: Detalles LED y control de volumen integrado.",
-    price: 25000, image: "/images/auriculares.jpg", category: "Audio" },
+    price: 30000, image: "/images/auriculares.jpg", category: "Audio" },
 
   { id: 2, title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020",
     description: "Rendimiento Rápido: Procesador Celeron, 4 GB de RAM y disco SSD de 128 GB. Autonomía: Batería de 5000 mAh para toda la jornada. Visualización: Pantalla LCD de 14.1'' con colores nítidos. Lista para usar: Incluye Windows 11 Home. Conectividad: Puertos USB y HDMI.",
