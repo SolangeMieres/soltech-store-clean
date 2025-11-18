@@ -249,6 +249,32 @@ Nota: Color sujeto a disponibilidad.`,
     description: `Tecnología Clave: Inverter para ahorro de energía, regulación automática de potencia y menor ruido.Capacidad: Frío/Calor. Potencia de $2300\text{ frigorías}$ ($2700\text{ W}$).Funciones: Incluye Control Remoto, Deflectores Móviles, Timer y funciones Automática/Ventilación.Beneficio: Enfría o calienta ambientes de manera rápida y eficiente.Dimensiones (Int.): $72.9\text{ cm}$ (ancho) $\times 29.2\text{ cm}$ (alto) $\times 20\text{ cm}$ (profundidad).`,
     price: 700000, image: "/images/aireadmiral.jpg", category: "Climatización" },
 
+    { id: 46, title: "Ventilador Kanjihome 18 Kjh-fh1311 De Pie",
+    description: `Tipo: De Pie, con altura regulable (1.50 m).
+
+Rendimiento: Diámetro de 18 pulgadas (45.72 cm) y 90 W de potencia.
+
+Aspas: 3 aspas de metal para un flujo de aire eficiente.
+
+Control: 3 niveles de intensidad (velocidades) para adaptarse a tus necesidades.
+
+Color: Negro.`,
+    price: 70000, image: "/images/ventitele.jpg", category: "Climatización" },
+
+     { id: 47, title: "Ventilador de Pie Admiral",
+    description: `Tipo: De Pie, con barral telescópico metálico (regulable en altura).
+
+Diámetro y Potencia: Cabezal de 18 pulgadas y 75 watts de potencia.
+
+Aspas: Metálicas, resistentes y eficientes.
+
+Control: 3 velocidades ajustables.
+
+Funcionalidad: Cabezal oscilante y regulable para redireccionar el flujo de aire.
+
+Color: Negro.`,
+    price: 75000, image: "/images/ventiadmiral.jpg", category: "Climatización" },
+
 ];
 
 
