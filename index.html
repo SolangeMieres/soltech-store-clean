@@ -6,6 +6,13 @@
     <title>SOLtech Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="./public/logo.png" />
+    <!-- En tu archivo index.html -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563eb">
+<!-- Fíjate que ahora agregamos "/images/" aquí también -->
+<link rel="apple-touch-icon" href="/images/icon-192.png">
+
+Con esto, el navegador buscará correctamente dentro de la carpeta `images` y tu app podrá instalarse sin errores.
     <script>
       tailwind.config = {
         theme: {
