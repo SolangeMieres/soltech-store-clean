@@ -1,9 +1,8 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import Head from 'next/head'; 
-import { Home as HomeIcon, ShoppingCart, User, Smartphone, Download, Share, Search, Filter, X, Plus, Trash2 } from 'lucide-react';
+import { Home as HomeIcon, ShoppingCart, User, Download, Share, Search, Filter, X, Plus, Trash2 } from 'lucide-react';
 
-// Componentes de estructura (Navbar/Footer)
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ShippingCalculator from "@/components/ShippingCalculator";
@@ -87,7 +86,7 @@ export default function Home() {
   const [lang, setLang] = useState("es");
   const t = texts[lang];
 
-  // Estados de la App
+  // Estados
   const [activeTab, setActiveTab] = useState('home');
   const [cart, setCart] = useState([]);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -95,6 +94,14 @@ export default function Home() {
   const [isIOS, setIsIOS] = useState(false);
   const [showInstallHelp, setShowInstallHelp] = useState(false);
 
+  // Filtros
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Todas");
+  const [sort, setSort] = useState("none");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+
+  // Inicialización PWA
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js');
@@ -119,13 +126,7 @@ export default function Home() {
     }
   };
 
-  // Filtros
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Todas");
-  const [sort, setSort] = useState("none");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-
+  // Lógica de Filtrado y Carrito
   const categories = ["Todas", ...new Set(productos.map((p) => p.category))];
 
   const productosFiltrados = useMemo(() => {
@@ -151,13 +152,14 @@ export default function Home() {
   const removeFromCart = (index) => setCart(cart.filter((_, i) => i !== index));
   const calculateTotal = () => cart.reduce((total, item) => total + item.price, 0).toLocaleString();
 
-  // --- VISTAS ---
-
-  const renderHome = () => (
+  // --- COMPONENTES DE VISTA ---
+  
+  // 1. HOME
+  const RenderHome = () => (
     <>
       <Navbar lang={lang} onChangeLang={setLang} />
 
-      <main className="min-h-screen px-4 md:px-12 pt-8 pb-32 relative bg-dark text-white">
+      <main className="min-h-screen px-6 md:px-12 pt-12 bg-dark text-white pb-32 relative">
         
         <Head>
           <link rel="manifest" href="/manifest.json" />
@@ -166,7 +168,7 @@ export default function Home() {
           <meta name="apple-mobile-web-app-capable" content="yes" />
         </Head>
 
-        {/* BOTÓN FLOTANTE INSTALAR */}
+        {/* Botón Instalar */}
         <div className="fixed top-24 right-4 z-50">
             <button 
               onClick={handleInstallClick} 
@@ -176,7 +178,7 @@ export default function Home() {
             </button>
         </div>
 
-        {/* AYUDA INSTALACIÓN */}
+        {/* Modal Ayuda */}
         {showInstallHelp && (
           <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4">
             <div className="bg-gray-800 p-6 rounded-xl max-w-sm w-full border border-gray-600 relative">
@@ -215,12 +217,10 @@ export default function Home() {
                <label className="text-gray-400 text-sm block mb-2">{t.categories}</label>
                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg cursor-pointer">{categories.map((c) => <option key={c}>{c}</option>)}</select>
             </div>
-            <label className="text-gray-400 text-sm">{t.priceRange}</label>
             <div className="flex gap-2 mb-4">
                 <input type="number" placeholder={t.min} value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="w-1/2 bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
                 <input type="number" placeholder={t.max} value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-1/2 bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
             </div>
-            <label className="text-gray-400 text-sm">{t.orderBy}</label>
             <select value={sort} onChange={(e) => setSort(e.target.value)} className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4">
                 <option value="none">{t.none}</option>
                 <option value="price-asc">{t.asc}</option>
@@ -229,30 +229,23 @@ export default function Home() {
             <button onClick={resetFilters} className="w-full mt-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg transition-colors">{t.clear}</button>
           </aside>
 
-          {/* 🟦 LISTA DE PRODUCTOS: Tarjeta Integrada para Diseño Perfecto */}
-          <section id="productos" className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Grilla de Productos */}
+          <section className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {productosFiltrados.length > 0 ? (
               productosFiltrados.map((p) => (
                 <div key={p.id} className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-lg flex flex-col h-full hover:shadow-cyan-500/20 transition-all duration-300">
-                  {/* Imagen */}
                   <div className="h-48 bg-white p-4 flex items-center justify-center relative">
                     <img src={p.image} alt={p.title} className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105" />
                     <span className="absolute top-2 left-2 bg-cyan-600 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">{p.category}</span>
                   </div>
-                  
-                  {/* Contenido */}
                   <div className="p-4 flex flex-col flex-grow">
                     <h3 className="font-bold text-white text-md mb-2 line-clamp-2 h-12">{p.title}</h3>
                     <p className="text-gray-400 text-xs mb-4 line-clamp-3 flex-grow">{p.description}</p>
-                    
                     <div className="mt-auto pt-3 border-t border-gray-700">
                       <div className="flex justify-between items-center mb-3">
                         <span className="text-2xl font-bold text-cyan-400">${p.price.toLocaleString()}</span>
                       </div>
-                      <button 
-                        onClick={() => addToCart(p)}
-                        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg"
-                      >
+                      <button onClick={() => addToCart(p)} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg">
                         <Plus size={18} /> AGREGAR AL CARRITO
                       </button>
                     </div>
@@ -270,23 +263,88 @@ export default function Home() {
         </div>
       </main>
       <Footer lang={lang} />
+    </>
+  );
 
-      {/* MENÚ MÓVIL */}
+  // 2. CARRITO
+  const RenderCart = () => (
+    <div className="px-4 pt-8 pb-32 min-h-screen bg-gray-900 text-white">
+      <h2 className="text-3xl font-bold mb-6 text-cyan-400">Tu Carrito</h2>
+      {cart.length === 0 ? (
+        <div className="flex flex-col items-center justify-center mt-20 text-gray-500">
+          <ShoppingCart size={64} className="mb-4 opacity-50" />
+          <p>Tu carrito está vacío</p>
+          <button onClick={() => setActiveTab('home')} className="mt-4 text-blue-400 font-semibold border border-blue-400 px-4 py-2 rounded-full">Ir a comprar</button>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {cart.map((item, index) => (
+            <div key={index} className="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm">
+              <div className="flex gap-4 items-center">
+                 <div className="w-16 h-16 bg-white rounded-lg overflow-hidden border border-gray-600 p-1 shrink-0">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
+                 </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-sm text-white line-clamp-2">{item.title}</p>
+                  <p className="text-cyan-400 font-bold">${item.price.toLocaleString()}</p>
+                </div>
+              </div>
+              <button onClick={() => removeFromCart(index)} className="text-red-400 bg-red-900/20 p-2 rounded-full hover:bg-red-900/40 shrink-0">
+                <Trash2 size={20} />
+              </button>
+            </div>
+          ))}
+          <div className="fixed bottom-20 left-0 w-full bg-gray-800 border-t border-gray-700 p-4 px-6 shadow-2xl z-40">
+            <div className="flex justify-between items-center mb-4 text-lg">
+              <span className="text-gray-400">Total</span>
+              <span className="font-bold text-2xl text-cyan-400">${calculateTotal()}</span>
+            </div>
+            <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-lg transform active:scale-95">
+              Pagar Ahora
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  // 3. PERFIL
+  const RenderProfile = () => (
+    <div className="p-6 pt-12 min-h-screen bg-gray-900 text-white">
+      <div className="flex items-center gap-4 mb-8">
+        <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center text-cyan-400 border-2 border-cyan-500">
+            <User size={32} />
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold">Hola, Cliente</h2>
+          <p className="text-gray-400">Bienvenido a SolTech</p>
+        </div>
+      </div>
+      <div className="space-y-3">
+        {['Mis Pedidos', 'Direcciones', 'Soporte', 'Cerrar Sesión'].map((item) => (
+          <button key={item} className="w-full text-left p-4 bg-gray-800 border border-gray-700 rounded-xl font-medium shadow-sm flex justify-between hover:bg-gray-700 transition-colors active:bg-gray-600">
+            {item} <span>›</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  // --- RETURN PRINCIPAL ---
+  return (
+    <div className="bg-dark text-white min-h-screen font-sans">
+      {activeTab === 'home' && <RenderHome />}
+      {activeTab === 'cart' && <RenderCart />}
+      {activeTab === 'profile' && <RenderProfile />}
+
+      {/* Menú Móvil (Visible en todas las pestañas) */}
       <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
         <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
           <HomeIcon size={24} strokeWidth={activeTab === 'home' ? 2.5 : 2} />
           <span className="text-[10px] font-medium">Inicio</span>
         </button>
         <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-          <div className="relative">
-            <ShoppingCart size={24} strokeWidth={activeTab === 'cart' ? 2.5 : 2} />
-            {cart.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-bounce">
-                {cart.length}
-              </span>
-            )}
-          </div>
-          <span className="text-[10px] font-medium">Carrito</span>
+          <div className="relative"><ShoppingCart size={24} strokeWidth={activeTab === 'cart' ? 2.5 : 2} />{cart.length > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-bounce">{cart.length}</span>}</div><span className="text-[10px] font-medium">Carrito</span>
         </button>
         <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
           <User size={24} strokeWidth={activeTab === 'profile' ? 2.5 : 2} />
@@ -296,95 +354,4 @@ export default function Home() {
       <style jsx global>{`.pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }`}</style>
     </div>
   );
-
-  // --- VISTAS AUXILIARES ---
-  function renderCart() {
-    return (
-        <div className="px-4 pt-8 pb-32 min-h-screen bg-gray-900 text-white">
-          <h2 className="text-3xl font-bold mb-6 text-cyan-400">Tu Carrito</h2>
-          {cart.length === 0 ? (
-            <div className="flex flex-col items-center justify-center mt-20 text-gray-500">
-              <ShoppingCart size={64} className="mb-4 opacity-50" />
-              <p>Tu carrito está vacío</p>
-              <button onClick={() => setActiveTab('home')} className="mt-4 text-blue-400 font-semibold border border-blue-400 px-4 py-2 rounded-full">Ir a comprar</button>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-4">
-              {cart.map((item, index) => (
-                <div key={index} className="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm">
-                  <div className="flex gap-4 items-center">
-                     <div className="w-16 h-16 bg-white rounded-lg overflow-hidden border border-gray-600 p-1 shrink-0">
-                        <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
-                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-bold text-sm text-white line-clamp-2">{item.title}</p>
-                      <p className="text-cyan-400 font-bold">${item.price.toLocaleString()}</p>
-                    </div>
-                  </div>
-                  <button onClick={() => removeFromCart(index)} className="text-red-400 bg-red-900/20 p-2 rounded-full hover:bg-red-900/40 shrink-0">
-                    <Trash2 size={20} />
-                  </button>
-                </div>
-              ))}
-              <div className="fixed bottom-20 left-0 w-full bg-gray-800 border-t border-gray-700 p-4 px-6 shadow-[0_-5px_20px_rgba(0,0,0,0.5)] z-40">
-                <div className="flex justify-between items-center mb-4 text-lg">
-                  <span className="text-gray-400">Total</span>
-                  <span className="font-bold text-2xl text-cyan-400">${calculateTotal()}</span>
-                </div>
-                <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-lg transform active:scale-95">
-                  Pagar Ahora
-                </button>
-              </div>
-            </div>
-          )}
-          {/* Menú Móvil (Duplicado para que aparezca también en estas vistas) */}
-          <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
-            <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-              <HomeIcon size={24} /> <span className="text-[10px] font-medium">Inicio</span>
-            </button>
-            <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-              <div className="relative"><ShoppingCart size={24} />{cart.length > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">{cart.length}</span>}</div><span className="text-[10px] font-medium">Carrito</span>
-            </button>
-            <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-              <User size={24} /> <span className="text-[10px] font-medium">Perfil</span>
-            </button>
-          </nav>
-        </div>
-    );
-  }
-
-  function renderProfile() {
-    return (
-        <div className="p-6 pt-12 min-h-screen bg-gray-900 text-white">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center text-cyan-400 border-2 border-cyan-500">
-                <User size={32} />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold">Hola, Cliente</h2>
-              <p className="text-gray-400">Bienvenido a SolTech</p>
-            </div>
-          </div>
-          <div className="space-y-3">
-            {['Mis Pedidos', 'Direcciones', 'Soporte', 'Cerrar Sesión'].map((item) => (
-              <button key={item} className="w-full text-left p-4 bg-gray-800 border border-gray-700 rounded-xl font-medium shadow-sm flex justify-between hover:bg-gray-700 transition-colors active:bg-gray-600">
-                {item} <span>›</span>
-              </button>
-            ))}
-          </div>
-          {/* Menú Móvil */}
-          <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
-            <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-              <HomeIcon size={24} /> <span className="text-[10px] font-medium">Inicio</span>
-            </button>
-            <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-              <div className="relative"><ShoppingCart size={24} />{cart.length > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">{cart.length}</span>}</div><span className="text-[10px] font-medium">Carrito</span>
-            </button>
-            <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-              <User size={24} /> <span className="text-[10px] font-medium">Perfil</span>
-            </button>
-          </nav>
-        </div>
-    );
-  }
 }
