@@ -1,34 +1,15 @@
 "use client";
-import { useState, useMemo, useEffect } from "react";
-// Importamos los íconos
-import { Home as HomeIcon, ShoppingCart, User, Plus, Trash2, Smartphone, Download, Share } from 'lucide-react';
+import { useState, useEffect } from "react";
+import Head from 'next/head'; 
+// Asegúrate de tener instalada esta librería: npm install lucide-react
+import { Home as HomeIcon, ShoppingCart, User, Plus, Trash2, Smartphone, Download, Share, Search } from 'lucide-react';
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import ShippingCalculator from "@/components/ShippingCalculator";
 
-const texts = {
-  es: {
-    heroTitle: "Tecnología con estilo",
-    heroSubtitle1: "Equipos, accesorios y soluciones tech diseñadas para simplificar tu vida digital.",
-    heroSubtitle2: "Innovación, diseño y potencia — todo en un solo lugar.",
-    cta: "Ver productos",
-    filters: "Filtros",
-    search: "Buscar producto...",
-    categories: "Categorías",
-    priceRange: "Rango de precios",
-    min: "Mínimo",
-    max: "Máximo",
-    orderBy: "Ordenar por",
-    none: "Sin orden",
-    asc: "Precio: menor a mayor",
-    desc: "Precio: mayor a menor",
-    clear: "Limpiar filtros",
-  },
-};
-
-// 🟦 TUS PRODUCTOS COMPLETOS (Restaurados)
+// --- DATOS COMPLETOS DE PRODUCTOS ---
 const productos = [
   { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable",
     description: "Audio Premium: Drivers de 50 mm con sonido envolvente y cristalino. Micrófono: Desmontable y omnidireccional para comunicación clara. Comodidad: Diseño Over-Ear con orejeras de espuma viscoelástica para aislamiento de ruido. Compatibilidad: Universal (PC, Consolas) con doble interfaz USB + Jack 3.5 mm. Extras: Detalles LED y control de volumen integrado.",
@@ -240,28 +221,34 @@ const productos = [
 
 ];
 
-
 export default function Home() {
   const [lang, setLang] = useState("es");
-  const t = texts[lang];
-
-  // 🟦 ESTADOS DE LA APP MÓVIL
+  
+  // Estados para la App Móvil
   const [activeTab, setActiveTab] = useState('home');
   const [cart, setCart] = useState([]);
+  const [search, setSearch] = useState("");
   
-  // 🟩 ESTADOS PARA LA INSTALACIÓN DE LA APP (PWA)
+  // Estados para la Instalación (PWA)
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
-    // 1. Detectar si es posible instalar (Android/PC)
+    // 1. Registrar el Service Worker
+    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('App registrada:', reg.scope))
+        .catch(err => console.log('Error al registrar:', err));
+    }
+
+    // 2. Capturar el evento de instalación
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
-    // 2. Detectar si es iOS (iPhone/iPad) para mostrar mensaje alternativo
+    // 3. Detectar si es iPhone
     const userAgent = window.navigator.userAgent.toLowerCase();
     setIsIOS(/iphone|ipad|ipod/.test(userAgent));
 
@@ -272,133 +259,89 @@ export default function Home() {
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        setDeferredPrompt(null);
-      }
+      if (outcome === 'accepted') setDeferredPrompt(null);
     }
   };
 
-  // 🟧 ESTADOS DE FILTRO
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Todas");
-  const [sort, setSort] = useState("none");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-
-  const categories = ["Todas", ...new Set(productos.map((p) => p.category))];
-
-  // 🧠 LÓGICA DE CARRITO
   const addToCart = (product) => {
     setCart([...cart, product]);
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(50);
   };
 
-  const removeFromCart = (indexToRemove) => {
-    setCart(cart.filter((_, index) => index !== indexToRemove));
-  };
+  const removeFromCart = (index) => setCart(cart.filter((_, i) => i !== index));
 
-  const calculateTotal = () => cart.reduce((total, item) => total + item.price, 0).toLocaleString();
-
-  // 🧠 FILTRADO
-  const productosFiltrados = useMemo(() => {
-    let result = [...productos];
-    if (search.trim() !== "") result = result.filter((p) => p.title.toLowerCase().includes(search.toLowerCase()));
-    if (selectedCategory !== "Todas") result = result.filter((p) => p.category === selectedCategory);
-    if (minPrice !== "") result = result.filter((p) => p.price >= Number(minPrice));
-    if (maxPrice !== "") result = result.filter((p) => p.price <= Number(maxPrice));
-    if (sort === "price-asc") result.sort((a, b) => a.price - b.price);
-    if (sort === "price-desc") result.sort((a, b) => b.price - a.price);
-    return result;
-  }, [search, selectedCategory, sort, minPrice, maxPrice]);
-
-  const resetFilters = () => {
-    setSearch(""); setSelectedCategory("Todas"); setSort("none"); setMinPrice(""); setMaxPrice("");
-  };
-
-  // --- VISTAS INTERNAS ---
+  // --- VISTAS ---
 
   const renderHome = () => (
     <>
       <Navbar lang={lang} onChangeLang={setLang} />
-
-      <main className="min-h-screen px-4 md:px-12 pt-8 pb-32 relative">
+      
+      <main className="min-h-screen px-4 pb-32 pt-6 relative bg-gray-900 text-white">
         
-        {/* 🔥 BOTÓN DE INSTALACIÓN FLOTANTE (Solo si está disponible) */}
+        {/* META TAGS CRÍTICOS PARA LA APP */}
+        <Head>
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content="#2563eb" />
+          <link rel="apple-touch-icon" href="/images/icon-192.png" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <title>SolTech App</title>
+        </Head>
+
+        {/* BOTÓN FLOTANTE DE INSTALAR */}
         {deferredPrompt && (
           <div className="fixed top-20 right-4 z-50 animate-bounce">
-            <button 
-              onClick={handleInstallClick}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center gap-2 border-2 border-white"
-            >
-              <Download size={20} />
-              Instalar App
+            <button onClick={handleInstallClick} className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center gap-2 border border-white/20">
+              <Download size={20} /> <span className="text-sm">Instalar App</span>
             </button>
           </div>
         )}
 
-        {/* 🍏 MENSAJE PARA iOS (Solo si es iPhone y no está en modo app) */}
+        {/* MENSAJE PARA IPHONE */}
         {isIOS && (
-          <div className="bg-gray-800 p-4 rounded-xl mb-6 flex items-start gap-3 border border-gray-700">
-            <div className="bg-gray-700 p-2 rounded-lg"><Share className="text-blue-400" size={24} /></div>
+          <div className="bg-gray-800/90 p-4 rounded-xl mb-6 flex gap-3 border border-white/10 mx-2 mt-4 backdrop-blur-sm">
+            <Share className="text-blue-400 shrink-0" size={24} />
             <div>
-              <p className="font-bold text-sm text-white">¿Quieres instalar la App?</p>
-              <p className="text-xs text-gray-400 mt-1">En iPhone: Toca el botón <strong>Compartir</strong> abajo y elige <strong>"Agregar a Inicio"</strong>.</p>
+              <p className="font-bold text-sm text-white">Instalar en iPhone:</p>
+              <p className="text-xs text-gray-400 mt-1">Toca el botón <strong>Compartir</strong> (abajo al centro) y elige <strong>"Agregar a Inicio"</strong>.</p>
             </div>
           </div>
         )}
 
-        <h1 className="text-3xl md:text-5xl font-extrabold text-brand text-center">{t.heroTitle}</h1>
-        <p className="text-light/80 text-center max-w-2xl mx-auto mb-6 text-sm md:text-base">
-          {t.heroSubtitle1}<br className="hidden md:block" />{t.heroSubtitle2}
-        </p>
+        {/* Buscador Móvil */}
+        <div className="mb-6 sticky top-2 z-30">
+          <div className="relative">
+            <Search className="absolute left-3 top-3 text-gray-400" size={20} />
+            <input 
+              type="text" 
+              placeholder="¿Qué buscas hoy?" 
+              value={search} 
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full bg-gray-800 text-white pl-10 pr-4 py-3 rounded-xl border border-gray-700 focus:border-blue-500 outline-none shadow-lg"
+            />
+          </div>
+        </div>
 
-        <ShippingCalculator lang={lang} />
-
-        <div className="flex flex-col md:flex-row mt-8 gap-10">
-          <aside className="w-full md:w-64 bg-dark/40 border border-cyan-700/20 rounded-xl p-5 h-fit md:sticky md:top-20">
-            <h3 className="text-cyan-400 font-semibold text-lg mb-4">{t.filters}</h3>
-            <input type="text" placeholder={t.search} value={search} onChange={(e) => setSearch(e.target.value)} 
-              className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4" />
-            <div className="mb-4">
-               <label className="text-light text-sm block mb-2">{t.categories}</label>
-               <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} 
-                 className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg">
-                 {categories.map((c) => <option key={c}>{c}</option>)}
-               </select>
+        {/* Grid de Productos */}
+        <h2 className="text-xl font-bold mb-4 px-2">Destacados</h2>
+        <div className="grid grid-cols-2 gap-4 pb-4">
+          {productos.filter(p => p.title.toLowerCase().includes(search.toLowerCase())).map((p) => (
+            <div key={p.id} className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 shadow-sm group relative">
+              <div className="h-32 bg-white p-2 flex items-center justify-center">
+                {/* Asegúrate de que las imágenes existan en /public/images/ */}
+                <img src={p.image} alt={p.title} className="max-h-full max-w-full object-contain" />
+              </div>
+              <div className="p-3">
+                <h3 className="text-sm font-medium line-clamp-2 h-10 leading-tight">{p.title}</h3>
+                <p className="text-blue-400 font-bold mt-1 text-lg">${p.price.toLocaleString()}</p>
+                <button 
+                  onClick={() => addToCart(p)}
+                  className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-xs font-bold flex items-center justify-center gap-1 active:scale-95 transition-all"
+                >
+                  <Plus size={14} /> AGREGAR
+                </button>
+              </div>
             </div>
-            <div className="hidden md:block">
-                <label className="text-light text-sm">{t.priceRange}</label>
-                <div className="flex gap-2 mb-4">
-                  <input type="number" placeholder={t.min} value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="w-1/2 bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
-                  <input type="number" placeholder={t.max} value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-1/2 bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
-                </div>
-                <label className="text-light text-sm">{t.orderBy}</label>
-                <select value={sort} onChange={(e) => setSort(e.target.value)} className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4">
-                  <option value="none">{t.none}</option>
-                  <option value="price-asc">{t.asc}</option>
-                  <option value="price-desc">{t.desc}</option>
-                </select>
-            </div>
-            <button onClick={resetFilters} className="w-full mt-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg">{t.clear}</button>
-          </aside>
-
-          <section id="productos" className="flex flex-wrap justify-center gap-6 flex-1">
-            {productosFiltrados.length > 0 ? (
-              productosFiltrados.map((p) => (
-                <div key={p.id} className="relative group">
-                  <ProductCard id={p.id} title={p.title} price={p.price} image={p.image} description={p.description} lang={lang} />
-                  <button 
-                    onClick={() => addToCart(p)}
-                    className="absolute bottom-4 right-4 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg z-10 flex items-center gap-2 px-4 font-bold text-sm"
-                  >
-                    <Plus size={16} /> <span className="md:hidden">Agregar</span>
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-400 text-lg">No se encontraron productos</p>
-            )}
-          </section>
+          ))}
         </div>
       </main>
       <Footer lang={lang} />
@@ -406,97 +349,68 @@ export default function Home() {
   );
 
   const renderCart = () => (
-    <div className="px-4 pt-8 pb-32 min-h-screen bg-white text-black">
-      <h2 className="text-3xl font-bold mb-6">Tu Carrito</h2>
+    <div className="min-h-screen bg-gray-50 text-gray-900 px-4 pt-8 pb-32">
+      <h2 className="text-2xl font-bold mb-6">Tu Carrito ({cart.length})</h2>
       {cart.length === 0 ? (
-        <div className="flex flex-col items-center justify-center mt-20 text-gray-400">
-          <ShoppingCart size={64} className="mb-4 opacity-20" />
+        <div className="text-center text-gray-400 mt-20">
+          <ShoppingCart size={48} className="mx-auto mb-2 opacity-20" />
           <p>Tu carrito está vacío</p>
-          <button onClick={() => setActiveTab('home')} className="mt-4 text-blue-600 font-semibold">Ir a comprar</button>
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
-          {cart.map((item, index) => (
-            <div key={index} className="flex justify-between items-center bg-gray-50 p-4 rounded-xl border border-gray-200 shadow-sm">
-              <div className="flex gap-4 items-center">
-                 <div className="w-12 h-12 bg-gray-200 rounded-lg overflow-hidden">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                 </div>
-                <div className="flex-1">
-                  <p className="font-bold text-sm text-gray-800 line-clamp-1">{item.title}</p>
-                  <p className="text-blue-600 font-bold">${item.price.toLocaleString()}</p>
-                </div>
+        cart.map((item, i) => (
+          <div key={i} className="flex justify-between items-center bg-white p-4 mb-3 rounded-xl border border-gray-200 shadow-sm">
+            <div className="flex gap-3 items-center">
+              <div className="w-12 h-12 bg-gray-100 rounded-lg p-1">
+                 <img src={item.image} className="w-full h-full object-contain" />
               </div>
-              <button onClick={() => removeFromCart(index)} className="text-red-500 bg-red-50 p-2 rounded-full hover:bg-red-100">
-                <Trash2 size={20} />
-              </button>
+              <div>
+                <p className="font-bold text-sm">{item.title}</p>
+                <p className="text-blue-600 font-bold">${item.price.toLocaleString()}</p>
+              </div>
             </div>
-          ))}
-          <div className="fixed bottom-20 left-0 w-full bg-white border-t p-4 px-6 shadow-[0_-5px_20px_rgba(0,0,0,0.1)]">
-            <div className="flex justify-between items-center mb-4 text-lg">
-              <span className="text-gray-500">Total</span>
-              <span className="font-bold text-2xl">${calculateTotal()}</span>
-            </div>
-            <button className="w-full bg-black text-white py-4 rounded-xl font-bold text-lg hover:scale-[1.02] transition-transform">
-              Pagar Ahora
-            </button>
+            <button onClick={() => removeFromCart(i)} className="text-red-500 bg-red-50 p-2 rounded-full"><Trash2 size={18} /></button>
           </div>
+        ))
+      )}
+      {cart.length > 0 && (
+        <div className="fixed bottom-20 left-0 w-full bg-white border-t p-4 shadow-lg">
+          <div className="flex justify-between mb-2 font-bold text-lg">
+            <span>Total:</span>
+            <span>${cart.reduce((t, i) => t + i.price, 0).toLocaleString()}</span>
+          </div>
+          <button className="w-full bg-black text-white py-3 rounded-xl font-bold">Ir a Pagar</button>
         </div>
       )}
     </div>
   );
 
-  const renderProfile = () => (
-    <div className="p-6 pt-12 min-h-screen bg-gray-50 text-black">
-      <div className="flex items-center gap-4 mb-8">
-        <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-            <User size={32} />
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold">Hola, Cliente</h2>
-          <p className="text-gray-500">Bienvenido a SolTech</p>
-        </div>
-      </div>
-      <div className="space-y-3">
-        {['Mis Pedidos', 'Direcciones', 'Soporte', 'Cerrar Sesión'].map((item) => (
-          <button key={item} className="w-full text-left p-4 bg-white border border-gray-200 rounded-xl font-medium shadow-sm active:bg-gray-100 flex justify-between">
-            {item} <span>›</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-
   return (
-    <div className="bg-dark text-white min-h-screen font-sans">
+    <>
       {activeTab === 'home' && renderHome()}
       {activeTab === 'cart' && renderCart()}
-      {activeTab === 'profile' && renderProfile()}
+      {activeTab === 'profile' && <div className="p-8 text-center text-white bg-gray-900 min-h-screen"><h1>Perfil de Usuario</h1></div>}
 
-      <nav className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around py-3 z-50 md:hidden text-gray-500 pb-safe">
-        <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-blue-600' : ''}`}>
+      {/* 📱 MENÚ INFERIOR TIPO APP */}
+      <nav className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 flex justify-around py-3 z-50 md:hidden text-gray-500 pb-safe shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-blue-600 scale-105' : ''} transition-all`}>
           <HomeIcon size={24} strokeWidth={activeTab === 'home' ? 2.5 : 2} />
           <span className="text-[10px] font-medium">Inicio</span>
         </button>
-        <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-blue-600' : ''}`}>
+        
+        <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-blue-600 scale-105' : ''} transition-all`}>
           <div className="relative">
             <ShoppingCart size={24} strokeWidth={activeTab === 'cart' ? 2.5 : 2} />
-            {cart.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                {cart.length}
-              </span>
-            )}
+            {cart.length > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center animate-bounce">{cart.length}</span>}
           </div>
           <span className="text-[10px] font-medium">Carrito</span>
         </button>
-        <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-blue-600' : ''}`}>
+
+        <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-blue-600 scale-105' : ''} transition-all`}>
           <User size={24} strokeWidth={activeTab === 'profile' ? 2.5 : 2} />
           <span className="text-[10px] font-medium">Perfil</span>
         </button>
       </nav>
-      <style jsx global>{`
-        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
-      `}</style>
-    </div>
+      <style jsx global>{`.pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }`}</style>
+    </>
   );
 }
