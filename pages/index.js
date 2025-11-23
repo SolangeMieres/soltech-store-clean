@@ -37,11 +37,11 @@ const productos = [
 
   { id: 2, title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020",
     description: "Rendimiento Rápido: Procesador Celeron, 4 GB de RAM y disco SSD de 128 GB. Autonomía: Batería de 5000 mAh para toda la jornada. Visualización: Pantalla LCD de 14.1'' con colores nítidos. Lista para usar: Incluye Windows 11 Home. Conectividad: Puertos USB y HDMI.",
-    price: 350000, image: "/images/notebook.jpg", category: "Computación" },
+    price: 370000, image: "/images/notebook.jpg", category: "Computación" },
 
   { id: 3, title: "Taladro Percutor 750w Daewoo DAID750BX",
     description: "Versátil: Ideal para perforar concreto, madera y metal con alta eficiencia. Control Total: Incluye mango lateral y tope de profundidad para perforaciones exactas. Mandril: 13 mm, compatible con amplia gama de brocas. Fácil de Usar: Diseño ergonómico y resistente.",
-    price: 75000, image: "/images/taladro.jpg", category: "Herramientas" },
+    price: 78000, image: "/images/taladro.jpg", category: "Herramientas" },
 
   { id: 4, title: "Smart TV Led 32 Philips",
     description: "Control por Voz: Compatible con Matter Smart Home, Alexa y Google. Sistema Operativo Titan OS: Plataforma Smart TV rápida con acceso a todas las apps de streaming. Sonido Dolby Audio: Audio claro y potente, ideal para diálogos, acción y música.",
@@ -61,11 +61,11 @@ const productos = [
 
   { id: 8, title: "Desmalezadora Motoguadaña Naftera 52cc",
     description: "Motor: 52 cc y 1650 W (6500 rpm) para cortes exigentes. Uso: Ideal para cortar malezas a ras del suelo y áreas de difícil acceso. Corte Versátil: Incluye cuchilla de 3 puntas (9 pulgadas) y cabezal porta tanza. Comodidad: Diseño ergonómico, manubrio tipo bicicleta y arnés doble reforzado. Transmisión: Eje recto con transmisión cardánica.",
-    price: 145000, image: "/images/desmalezadora.jpg", category: "Herramientas" },
+    price: 150000, image: "/images/desmalezadora.jpg", category: "Herramientas" },
 
   { id: 9, title: "Aire Acondicionado Sansei Split",
     description: "Climatización Total: Frío/Calor con 2365 frigorías (2750 W frío / 2500 W calor). Eficiencia: Tecnología On-Off y Clase A de eficiencia energética. Silencioso: Nivel de ruido bajo (≤51 dB). Funciones: Incluye Temporizador y función Sueño. Refrigerante: Gas ecológico R410a. Garantía: 12 meses.",
-    price: 750000, image: "/images/airesensei.jpg", category: "Climatización" },
+    price: 700000, image: "/images/airesensei.jpg", category: "Climatización" },
 
   { id: 10, title: "Celular Tecno Spark 30C 128GB Orbit Black",
     description: "Desempeño: Procesador MediaTek Helio G81 con 4 GB de RAM. Almacenamiento: 256 GB internos. Pantalla: 6.67 pulgadas con tasa de refresco fluida (60 Hz a 120 Hz). Cámara: Principal de 50 MP y frontal de 8 MP. Batería: 5000 mAh con carga rápida de 18 W.",
@@ -81,7 +81,7 @@ const productos = [
 
   { id: 13, title: "Secadora Por Calor Kanjihome 4kg",
     description: "Capacidad: 4 kg. Rendimiento: Secado por calor con 1250 W de potencia. Programas: 3 ciclos de secado. Seguridad: Protección IPX4 (resistente a salpicaduras). Color: Blanco.",
-    price: 300000, image: "/images/secakanji.jpg", category: "Secarropas" },
+    price: 420000, image: "/images/secakanji.jpg", category: "Secarropas" },
 
   { id: 14, title: "Lavarropas Philco 5.5 Kg",
     description: "Capacidad: 5.5 kg. Programas: 10 ciclos de lavado. Eficiencia: Clase A de eficiencia energética. Centrifugado: 750 RPM que deja la ropa casi seca. Sistema de Lavado: Oriental, efectivo y delicado. Diseño: Carga superior en color gris, compacto y moderno.",
@@ -89,7 +89,7 @@ const productos = [
 
   { id: 15, title: "Heladera Bajo Mesada Hisense 126L",
     description: "Capacidad: 126 litros, ideal como auxiliar o para cocinas pequeñas. Diseño: Negro, compacto y con puerta reversible. Características: Control mecánico, almacenamiento para botellas de 2 L, zona más fría y bajo ruido. Comodidad: Patas ajustables y luz interior. Garantía: 12 meses.",
-    price: 360000, image: "/images/helahisense.jpg", category: "Heladeras" },
+    price: 420000, image: "/images/helahisense.jpg", category: "Heladeras" },
 
   { id: 16, title: "Heladera Cíclica Admiral 208 Lts",
     description: "Capacidad: 207 litros netos. Enfriamiento: Sistema cíclico que garantiza frescura constante. Organización: Estantes desmontables, cajón especial para frutas/verduras y anaqueles para botellas. Diseño: Elegante color blanco, ideal para cocinas u oficinas.",
@@ -113,7 +113,7 @@ const productos = [
 
   { id: 21, title: "Celular Samsung Galaxy A16 4G",
     description: "Pantalla Superior: Impresionante Super AMOLED de 6.7 pulgadas con resolución FHD+. Memoria y Rendimiento: 128 GB de almacenamiento interno y 4 GB de RAM.",
-    price: 400000, image: "/images/samsunga16.jpg", category: "Celulares" },
+    price: 450000, image: "/images/samsunga16.jpg", category: "Celulares" },
 
   { id: 22, title: "Celular Motorola G15 4GB 128GB",
     description: "Rendimiento y Almacenamiento: 4 GB de RAM y 128 GB internos. Pantalla: 6.72'' con resolución FHD+ (1080 x 2400). Cámara Principal: Dual trasera de 50 MP + 5 MP; frontal de 8 MP. Batería: 5200 mAh para usarlo todo el día.",
@@ -121,7 +121,7 @@ const productos = [
 
   { id: 23, title: "Celular ZTE Blade A35 64GB",
     description: "Almacenamiento: 64 GB internos (expandibles a 1 TB) y 2 GB de RAM. Pantalla: IPS de 6.75 pulgadas con resolución HD+. Batería: 5000 mAh para todo el día. Cámara: Trasera principal de 8 MP + AI y frontal de 5 MP.",
-    price: 150000, image: "/images/ztea35.jpg", category: "Celulares" },
+    price: 130000, image: "/images/ztea35.jpg", category: "Celulares" },
 
   { id: 24, title: "Smart TV Samsung 50” UHD 4K",
     description: "Imagen Superior: Pantalla 50 pulgadas con resolución UHD 4K. Tecnología de Color: PurColor y Procesador Crystal 4K. Sonido Inmersivo: Compatible con Q-Symphony. Smart TV: Samsung Tizen OS (con Samsung TV Plus, Gaming Hub y SmartThings). Diseño: Elegante, minimalista y con biseles delgados.",
@@ -129,7 +129,7 @@ const productos = [
 
   { id: 25, title: "Bicicleta MTB Rydetech 300 R29",
     description: "Cuadro: Acero hidroformado robusto. Suspensión: Horquilla de 80 mm para absorber impactos. Ruedas: Llantas de aluminio doble pared con cubiertas Wanda Compass 29x2.10. Transmisión: 21 velocidades con shifters integrados. Frenos: V-Brake potentes. Comodidad: Manubrio doble altura, asiento MTB y portasilla con cierre rápido. Incluye pie de apoyo.",
-    price: 300000, image: "/images/bici.jpg", category: "Bicicletas" },
+    price: 290000, image: "/images/bici.jpg", category: "Bicicletas" },
 
   { id: 26, title: "Bicicleta Infantil Nathor R16",
     description: "Edad y Altura: Recomendada para niños de 5 años o más (110 cm a 120 cm). Seguridad: Limitador de giro de manubrio y rueditas laterales desmontables. Crecimiento: Asiento y manubrio regulables. Frenos: V-Brake con maneta intuitiva (amarilla). Estructura: Cuadro de acero al carbono. Peso Máximo Usuario: 30 kg.",
@@ -141,35 +141,35 @@ const productos = [
 
   { id: 28, title: "Auricular Aiwa TWA-80B Blanco",
     description: "Conectividad: Bluetooth. Control: Micrófono y Touch multifunción para volumen y canciones. Comodidad: Diseño In-Ear. Accesorios: Estuche de carga y cable USB Tipo C.",
-    price: 25000, image: "/images/auriaiwa.jpg", category: "Audio" },
+    price: 20000, image: "/images/auriaiwa.jpg", category: "Audio" },
 
   { id: 29, title: "Aspiradora Robot Sansei",
     description: "Doble Función: Aspira (1400 Pa) y trapea en simultáneo (depósito de polvo 200 ml y tanque de agua 230 ml). Filtro: HEPA para capturar alérgenos. Autonomía: Batería de 2000 mAh con 120 min de uso. Regresa automáticamente a la base. Navegación: 4 modos de limpieza y sensores anti-choque/anti-caída. Control: Remoto.",
-    price: 210000, image: "/images/aspisansei.jpg", category: "Hogar" },
+    price: 240000, image: "/images/aspisansei.jpg", category: "Hogar" },
 
-  { id: 30, title: "Pizarra Mágica 12\"",
+  { id: 30, title: "Pizarra Mágica 12",
     description: "Pantalla: LCD de 12.5 pulgadas multicolor. Fácil de Usar: Escribe, dibuja y borra con un toque (sin tiza ni marcadores). Portabilidad: Diseño compacto y ligero. Energía: Batería de litio recargable.",
     price: 9500, image: "/images/pizzarra.jpg", category: "Juguetes" },
 
   { id: 31, title: "Cuatriciclo Stark Naranja 6V",
     description: "Edad Recomendada: Niños de 2 a 4 años (capacidad máxima 30 kg). Rendimiento: Batería de 6 V, hasta 2 horas de uso y 3 Km/h. Funcionalidad: Marcha adelante y atrás, con sonidos y luces. Extras: Caja trasera para guardar juguetes. Dimensiones: 65 cm x 45 cm x 50 cm.",
-    price: 120000, image: "/images/cuatri.jpg", category: "Juguetes" },
+    price: 110000, image: "/images/cuatri.jpg", category: "Juguetes" },
 
   { id: 32, title: "Cuatriciclo Stark Blanco 6V",
     description: "Edad Recomendada: 2 a 4 años (hasta 30 kg). Rendimiento: Batería de 6 V, ≈ 2 horas de uso y 3 Km/h. Funcionalidad: Marcha adelante y atrás, con sonidos y luces. Extras: Caja trasera para guardar juguetes. Medidas: 65 cm x 45 cm x 50 cm. Diseño realista y seguro.",
-    price: 120000, image: "/images/cuatrib.jpg", category: "Juguetes" },
+    price: 110000, image: "/images/cuatrib.jpg", category: "Juguetes" },
 
   { id: 33, title: "Mesa Didáctica Unicornio",
     description: "Función Principal: Mesa didáctica con proyector temático de Unicornio. Contenido: 1 libro, 24 patrones proyectables, 12 lapiceras y paño de limpieza. Edad Recomendada: 3 a 5 años. Alimentación: Requiere 3 pilas AA (no incluidas).",
-    price: 40000, image: "/images/mesauni.jpg", category: "Juguetes" },
+    price: 30000, image: "/images/mesauni.jpg", category: "Juguetes" },
 
   { id: 34, title: "Mesa Didáctica Dinosaurio",
     description: "Función Principal: Mesa didáctica con proyector temático de Dinosaurio. Contenido: 1 libro, 24 patrones proyectables, 12 lapiceras y paño de limpieza. Edad Recomendada: 3 a 5 años. Alimentación: Requiere 3 pilas AA (no incluidas).",
-    price: 40000, image: "/images/mesadino.jpg", category: "Juguetes" },
+    price: 30000, image: "/images/mesadino.jpg", category: "Juguetes" },
 
-  { id: 35, title: "Lavasecarropas Philco 12/8KG",
-    description: "Capacidad: 12 kg lavado / 8 kg secado. Motor Inverter: Direct Drive (silencioso, menor desgaste). Funciones Avanzadas: Lavado a Vapor (higieniza), One Touch (autoajuste de ciclo), Lavado Rápido (15 minutos). Rendimiento: 1400 RPM de centrifugado. Diseño: Carga Frontal, Titanium Grey. Dimensiones: 60 cm x 84.7 cm x 64 cm.",
-    price: 1000000, image: "/images/lavaseca.jpg", category: "Lavarropas" },
+ // { id: 35, title: "Lavasecarropas Philco 12/8KG",
+    //description: "Capacidad: 12 kg lavado / 8 kg secado. Motor Inverter: Direct Drive (silencioso, menor desgaste). Funciones Avanzadas: Lavado a Vapor (higieniza), One Touch (autoajuste de ciclo), Lavado Rápido (15 minutos). Rendimiento: 1400 RPM de centrifugado. Diseño: Carga Frontal, Titanium Grey. Dimensiones: 60 cm x 84.7 cm x 64 cm.",
+    //price: 1000000, image: "/images/lavaseca.jpg", category: "Lavarropas" },
 
   { id: 36, title: "Nebulizador Ultrasónico",
     description: "Tecnología: Ultrasónico (vapor fino para mayor eficacia). Ventajas: Liviano y silencioso, ideal para niños. Aplicación: Para afecciones respiratorias, reduce inflamación y facilita la respiración. Accesorios: Boquilla, máscaras para adultos/niños y cable USB.",
@@ -201,7 +201,7 @@ const productos = [
 
   { id: 43, title: "Trapeador Escurridor Ajustable Mopa Esponja Hogar Compacta",
     description: "Funcionalidad: Sistema de escurrido manual que elimina el exceso de agua fácilmente. Beneficio: Deja el piso seco y limpio rápidamente. Comodidad: Diseño ergonómico y duradero para uso diario.",
-    price: 40000, image: "/images/trapeaescurri.jpg", category: "Hogar" },
+    price: 35000, image: "/images/trapeaescurri.jpg", category: "Hogar" },
 
   { id: 44, title: "Organizador De Remeras Y Ropa Premium Rigido",
     description: "Función: Diseñado para clasificar remeras/ropa de manera eficiente, manteniéndolas a la vista. Beneficio: Ahorra tiempo y optimiza el espacio en armarios/cajones. Calidad: Materiales rígidos y duraderos. Nota: Color sujeto a disponibilidad.",
