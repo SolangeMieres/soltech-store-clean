@@ -1,12 +1,11 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import Head from 'next/head'; 
-import { Home as HomeIcon, ShoppingCart, User, Download, Share, Filter, X, Plus, HelpCircle } from 'lucide-react';
+import { Home as HomeIcon, ShoppingCart, User, Smartphone, Download, Share, Search, Filter, X, Plus, Trash2 } from 'lucide-react';
 
-// Importamos tus componentes originales
+// Componentes de estructura (Navbar/Footer)
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ProductCard from "@/components/ProductCard";
 import ShippingCalculator from "@/components/ShippingCalculator";
 
 const texts = {
@@ -14,7 +13,6 @@ const texts = {
     heroTitle: "Tecnología con estilo",
     heroSubtitle1: "Equipos, accesorios y soluciones tech diseñadas para simplificar tu vida digital.",
     heroSubtitle2: "Innovación, diseño y potencia — todo en un solo lugar.",
-    cta: "Ver productos",
     filters: "Filtros",
     search: "Buscar producto...",
     categories: "Categorías",
@@ -31,7 +29,7 @@ const texts = {
 
 // 🟦 TUS PRODUCTOS (52 Items)
 const productos = [
-  { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable", description: "Audio Premium: Drivers de 50 mm con sonido envolvente y cristalino. Micrófono: Desmontable y omnidireccional para comunicación clara.", price: 30000, image: "/images/auriculares.jpg", category: "Audio" },
+  { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable", description: "Audio Premium: Drivers de 50 mm con sonido envolvente y cristalino. Micrófono: Desmontable.", price: 30000, image: "/images/auriculares.jpg", category: "Audio" },
   { id: 2, title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020", description: "Rendimiento Rápido: Procesador Celeron, 4 GB de RAM y disco SSD de 128 GB. Autonomía: Batería de 5000 mAh.", price: 370000, image: "/images/notebook.jpg", category: "Computación" },
   { id: 3, title: "Taladro Percutor 750w Daewoo DAID750BX", description: "Versátil: Ideal para perforar concreto, madera y metal con alta eficiencia. Incluye mango lateral.", price: 78000, image: "/images/taladro.jpg", category: "Herramientas" },
   { id: 4, title: "Smart TV Led 32 Philips", description: "Control por Voz: Compatible con Matter Smart Home, Alexa y Google. Sistema Operativo Titan OS.", price: 300000, image: "/images/ledphilips.jpg", category: "TV" },
@@ -89,13 +87,13 @@ export default function Home() {
   const [lang, setLang] = useState("es");
   const t = texts[lang];
 
+  // Estados de la App
   const [activeTab, setActiveTab] = useState('home');
   const [cart, setCart] = useState([]);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [showInstallHelp, setShowInstallHelp] = useState(false);
-  
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isIOS, setIsIOS] = useState(false);
+  const [showInstallHelp, setShowInstallHelp] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
@@ -113,17 +111,15 @@ export default function Home() {
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
-      // Si la app está lista para instalar, la instalamos
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') setDeferredPrompt(null);
     } else {
-      // Si NO está lista (falta ícono o es iOS), mostramos la ayuda manual
       setShowInstallHelp(true);
     }
   };
 
-  // Lógica de Filtros
+  // Filtros
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [sort, setSort] = useState("none");
@@ -161,7 +157,7 @@ export default function Home() {
     <>
       <Navbar lang={lang} onChangeLang={setLang} />
 
-      <main className="min-h-screen px-6 md:px-12 pt-12 bg-dark text-white pb-32 relative">
+      <main className="min-h-screen px-4 md:px-12 pt-8 pb-32 relative bg-dark text-white">
         
         <Head>
           <link rel="manifest" href="/manifest.json" />
@@ -170,42 +166,32 @@ export default function Home() {
           <meta name="apple-mobile-web-app-capable" content="yes" />
         </Head>
 
-        {/* --- BOTÓN FLOTANTE PERMANENTE --- */}
+        {/* BOTÓN FLOTANTE INSTALAR */}
         <div className="fixed top-24 right-4 z-50">
             <button 
               onClick={handleInstallClick} 
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-2xl flex items-center gap-2 border-2 border-white animate-bounce"
             >
-              <Download size={20} /> 
-              <span className="hidden md:inline">Instalar App</span>
+              <Download size={20} /> <span className="hidden md:inline">Instalar App</span>
             </button>
         </div>
 
-        {/* --- MODAL DE AYUDA MANUAL (Si la instalación falla) --- */}
+        {/* AYUDA INSTALACIÓN */}
         {showInstallHelp && (
           <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4">
             <div className="bg-gray-800 p-6 rounded-xl max-w-sm w-full border border-gray-600 relative">
               <button onClick={() => setShowInstallHelp(false)} className="absolute top-2 right-2 text-gray-400"><X size={24}/></button>
-              <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2"><Smartphone /> Instalar App Manualmente</h3>
-              <p className="text-gray-300 mb-4">Tu navegador no permite instalación automática (o faltan los íconos). Sigue estos pasos:</p>
-              
-              <div className="space-y-4 text-sm">
-                <div className="flex gap-3 items-start">
-                  <span className="bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0">1</span>
-                  <p>Toca el botón de <strong>Opciones</strong> de tu navegador (los 3 puntos o botón Compartir).</p>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0">2</span>
-                  <p>Busca la opción <strong>"Agregar a la pantalla de inicio"</strong> o "Instalar Aplicación".</p>
-                </div>
+              <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2"><Smartphone /> Instalar Manualmente</h3>
+              <p className="text-gray-300 mb-4 text-sm">Tu navegador no permite instalación automática. Haz esto:</p>
+              <div className="space-y-3 text-sm text-gray-300">
+                <p>1. Toca el menú del navegador (3 puntos o botón Compartir).</p>
+                <p>2. Elige <strong>"Agregar a pantalla de inicio"</strong>.</p>
               </div>
-              
-              <button onClick={() => setShowInstallHelp(false)} className="w-full mt-6 bg-gray-700 hover:bg-gray-600 py-2 rounded-lg font-bold">Entendido</button>
+              <button onClick={() => setShowInstallHelp(false)} className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold">Entendido</button>
             </div>
           </div>
         )}
 
-        {/* Título */}
         <div className="text-center mb-10">
             <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4 text-cyan-400 drop-shadow-md">{t.heroTitle}</h1>
             <p className="text-gray-300 text-center max-w-2xl mx-auto text-sm md:text-base">{t.heroSubtitle1}<br />{t.heroSubtitle2}</p>
@@ -213,140 +199,82 @@ export default function Home() {
 
         <ShippingCalculator lang={lang} />
 
-        {/* Botón Filtros Móvil */}
         <button className="md:hidden w-full mb-4 flex items-center justify-center gap-2 bg-gray-800 py-3 rounded-lg border border-gray-700 text-white" onClick={() => setShowMobileFilters(!showMobileFilters)}>
             <Filter size={18} /> {showMobileFilters ? 'Ocultar Filtros' : 'Mostrar Filtros'}
         </button>
 
-        <div className="flex flex-col md:flex-row mt-12 gap-10">
-          
+        <div className="flex flex-col md:flex-row mt-8 gap-10">
           {/* Sidebar */}
-          <aside className={`${showMobileFilters ? 'block' : 'hidden'} md:block w-full md:w-64 bg-dark/40 border border-cyan-700/20 rounded-xl p-5 h-fit md:sticky md:top-20`}>
+          <aside className={`${showMobileFilters ? 'block' : 'hidden'} md:block w-full md:w-64 bg-gray-900/50 border border-cyan-700/20 rounded-xl p-5 h-fit md:sticky md:top-24 backdrop-blur-sm`}>
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-cyan-400 font-semibold text-lg">{t.filters}</h3>
                 {showMobileFilters && <button onClick={() => setShowMobileFilters(false)}><X size={20} className="text-white"/></button>}
             </div>
-            <input type="text" placeholder={t.search} value={search} onChange={(e) => setSearch(e.target.value)} className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4" />
+            <input type="text" placeholder={t.search} value={search} onChange={(e) => setSearch(e.target.value)} className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4 focus:ring-2 focus:ring-cyan-500 outline-none" />
             <div className="mb-4">
-                <label className="text-light text-sm block mb-2">{t.categories}</label>
-                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg">{categories.map((c) => <option key={c}>{c}</option>)}</select>
+               <label className="text-gray-400 text-sm block mb-2">{t.categories}</label>
+               <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg cursor-pointer">{categories.map((c) => <option key={c}>{c}</option>)}</select>
             </div>
-            <label className="text-light text-sm">{t.priceRange}</label>
+            <label className="text-gray-400 text-sm">{t.priceRange}</label>
             <div className="flex gap-2 mb-4">
-              <input type="number" placeholder={t.min} value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="w-1/2 bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
-              <input type="number" placeholder={t.max} value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-1/2 bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
+                <input type="number" placeholder={t.min} value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="w-1/2 bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
+                <input type="number" placeholder={t.max} value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-1/2 bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
             </div>
-            <label className="text-light text-sm">{t.orderBy}</label>
-            <select value={sort} onChange={(e) => setSort(e.target.value)} className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4">
-              <option value="none">{t.none}</option>
-              <option value="price-asc">{t.asc}</option>
-              <option value="price-desc">{t.desc}</option>
+            <label className="text-gray-400 text-sm">{t.orderBy}</label>
+            <select value={sort} onChange={(e) => setSort(e.target.value)} className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4">
+                <option value="none">{t.none}</option>
+                <option value="price-asc">{t.asc}</option>
+                <option value="price-desc">{t.desc}</option>
             </select>
-            <button onClick={resetFilters} className="w-full mt-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg">{t.clear}</button>
+            <button onClick={resetFilters} className="w-full mt-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg transition-colors">{t.clear}</button>
           </aside>
 
-          {/* 🟦 PRODUCTOS: Usando tu componente original y corrigiendo la grilla */}
-          <section id="productos" className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* 🟦 LISTA DE PRODUCTOS: Tarjeta Integrada para Diseño Perfecto */}
+          <section id="productos" className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {productosFiltrados.length > 0 ? (
               productosFiltrados.map((p) => (
-                <div key={p.id} className="flex flex-col">
-                    {/* Usamos tu componente original tal cual */}
-                    <ProductCard
-                      id={p.id}
-                      title={p.title}
-                      price={p.price}
-                      image={p.image}
-                      description={p.description}
-                      lang={lang}
-                    />
-                    {/* Botón extra para conectar con el carrito de la App si el ProductCard no lo hace */}
-                    <button onClick={() => addToCart(p)} className="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg md:hidden">
-                        <Plus size={16} className="inline mr-1"/> Agregar
-                    </button>
+                <div key={p.id} className="bg-gray-800 border border-gray-700 rounded-xl overflow-hidden shadow-lg flex flex-col h-full hover:shadow-cyan-500/20 transition-all duration-300">
+                  {/* Imagen */}
+                  <div className="h-48 bg-white p-4 flex items-center justify-center relative">
+                    <img src={p.image} alt={p.title} className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105" />
+                    <span className="absolute top-2 left-2 bg-cyan-600 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">{p.category}</span>
+                  </div>
+                  
+                  {/* Contenido */}
+                  <div className="p-4 flex flex-col flex-grow">
+                    <h3 className="font-bold text-white text-md mb-2 line-clamp-2 h-12">{p.title}</h3>
+                    <p className="text-gray-400 text-xs mb-4 line-clamp-3 flex-grow">{p.description}</p>
+                    
+                    <div className="mt-auto pt-3 border-t border-gray-700">
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="text-2xl font-bold text-cyan-400">${p.price.toLocaleString()}</span>
+                      </div>
+                      <button 
+                        onClick={() => addToCart(p)}
+                        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg"
+                      >
+                        <Plus size={18} /> AGREGAR AL CARRITO
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))
             ) : (
-              <p className="text-gray-400 text-lg w-full text-center py-20 col-span-full">No se encontraron productos</p>
+              <div className="flex flex-col items-center justify-center w-full py-20 text-gray-500 col-span-full">
+                  <Search size={48} className="mb-4 opacity-50"/>
+                  <p className="text-xl">No se encontraron productos</p>
+                  <button onClick={resetFilters} className="text-blue-400 mt-2 hover:underline">Limpiar filtros</button>
+              </div>
             )}
           </section>
         </div>
       </main>
       <Footer lang={lang} />
-    </>
-  );
 
-  const renderCart = () => (
-    <div className="px-4 pt-8 pb-32 min-h-screen bg-gray-900 text-white">
-      <h2 className="text-3xl font-bold mb-6">Tu Carrito</h2>
-      {cart.length === 0 ? (
-        <div className="flex flex-col items-center justify-center mt-20 text-gray-500">
-          <ShoppingCart size={64} className="mb-4 opacity-50" />
-          <p>Tu carrito está vacío</p>
-          <button onClick={() => setActiveTab('home')} className="mt-4 text-blue-400 font-semibold">Ir a comprar</button>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-4">
-          {cart.map((item, index) => (
-            <div key={index} className="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm">
-              <div className="flex gap-4 items-center">
-                 <div className="w-16 h-16 bg-white rounded-lg overflow-hidden border border-gray-600 p-1">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
-                 </div>
-                <div className="flex-1">
-                  <p className="font-bold text-sm text-white line-clamp-2">{item.title}</p>
-                  <p className="text-cyan-400 font-bold">${item.price.toLocaleString()}</p>
-                </div>
-              </div>
-              <button onClick={() => removeFromCart(index)} className="text-red-400 bg-red-900/20 p-2 rounded-full hover:bg-red-900/40">
-                <Trash2 size={20} />
-              </button>
-            </div>
-          ))}
-          <div className="fixed bottom-20 left-0 w-full bg-gray-800 border-t border-gray-700 p-4 px-6 shadow-2xl">
-            <div className="flex justify-between items-center mb-4 text-lg">
-              <span className="text-gray-400">Total</span>
-              <span className="font-bold text-2xl text-cyan-400">${calculateTotal()}</span>
-            </div>
-            <button className="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold text-lg transition-colors">
-              Pagar Ahora
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-
-  const renderProfile = () => (
-    <div className="p-6 pt-12 min-h-screen bg-gray-900 text-white">
-      <div className="flex items-center gap-4 mb-8">
-        <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center text-cyan-400">
-            <User size={32} />
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold">Hola, Cliente</h2>
-          <p className="text-gray-400">Bienvenido</p>
-        </div>
-      </div>
-      <div className="space-y-3">
-        {['Mis Pedidos', 'Direcciones', 'Soporte', 'Cerrar Sesión'].map((item) => (
-          <button key={item} className="w-full text-left p-4 bg-gray-800 border border-gray-700 rounded-xl font-medium shadow-sm flex justify-between hover:bg-gray-700 transition-colors">
-            {item} <span>›</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="bg-dark text-white min-h-screen font-sans">
-      {activeTab === 'home' && renderHome()}
-      {activeTab === 'cart' && renderCart()}
-      {activeTab === 'profile' && renderProfile()}
-
-      {/* MENÚ APP (Solo visible en móvil) */}
+      {/* MENÚ MÓVIL */}
       <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
         <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
-          <HomeIcon size={24} strokeWidth={2.5} />
+          <HomeIcon size={24} strokeWidth={activeTab === 'home' ? 2.5 : 2} />
           <span className="text-[10px] font-medium">Inicio</span>
         </button>
         <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
@@ -368,4 +296,95 @@ export default function Home() {
       <style jsx global>{`.pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }`}</style>
     </div>
   );
+
+  // --- VISTAS AUXILIARES ---
+  function renderCart() {
+    return (
+        <div className="px-4 pt-8 pb-32 min-h-screen bg-gray-900 text-white">
+          <h2 className="text-3xl font-bold mb-6 text-cyan-400">Tu Carrito</h2>
+          {cart.length === 0 ? (
+            <div className="flex flex-col items-center justify-center mt-20 text-gray-500">
+              <ShoppingCart size={64} className="mb-4 opacity-50" />
+              <p>Tu carrito está vacío</p>
+              <button onClick={() => setActiveTab('home')} className="mt-4 text-blue-400 font-semibold border border-blue-400 px-4 py-2 rounded-full">Ir a comprar</button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {cart.map((item, index) => (
+                <div key={index} className="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm">
+                  <div className="flex gap-4 items-center">
+                     <div className="w-16 h-16 bg-white rounded-lg overflow-hidden border border-gray-600 p-1 shrink-0">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
+                     </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-sm text-white line-clamp-2">{item.title}</p>
+                      <p className="text-cyan-400 font-bold">${item.price.toLocaleString()}</p>
+                    </div>
+                  </div>
+                  <button onClick={() => removeFromCart(index)} className="text-red-400 bg-red-900/20 p-2 rounded-full hover:bg-red-900/40 shrink-0">
+                    <Trash2 size={20} />
+                  </button>
+                </div>
+              ))}
+              <div className="fixed bottom-20 left-0 w-full bg-gray-800 border-t border-gray-700 p-4 px-6 shadow-[0_-5px_20px_rgba(0,0,0,0.5)] z-40">
+                <div className="flex justify-between items-center mb-4 text-lg">
+                  <span className="text-gray-400">Total</span>
+                  <span className="font-bold text-2xl text-cyan-400">${calculateTotal()}</span>
+                </div>
+                <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white py-4 rounded-xl font-bold text-lg transition-all shadow-lg transform active:scale-95">
+                  Pagar Ahora
+                </button>
+              </div>
+            </div>
+          )}
+          {/* Menú Móvil (Duplicado para que aparezca también en estas vistas) */}
+          <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
+            <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+              <HomeIcon size={24} /> <span className="text-[10px] font-medium">Inicio</span>
+            </button>
+            <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+              <div className="relative"><ShoppingCart size={24} />{cart.length > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">{cart.length}</span>}</div><span className="text-[10px] font-medium">Carrito</span>
+            </button>
+            <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+              <User size={24} /> <span className="text-[10px] font-medium">Perfil</span>
+            </button>
+          </nav>
+        </div>
+    );
+  }
+
+  function renderProfile() {
+    return (
+        <div className="p-6 pt-12 min-h-screen bg-gray-900 text-white">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center text-cyan-400 border-2 border-cyan-500">
+                <User size={32} />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">Hola, Cliente</h2>
+              <p className="text-gray-400">Bienvenido a SolTech</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            {['Mis Pedidos', 'Direcciones', 'Soporte', 'Cerrar Sesión'].map((item) => (
+              <button key={item} className="w-full text-left p-4 bg-gray-800 border border-gray-700 rounded-xl font-medium shadow-sm flex justify-between hover:bg-gray-700 transition-colors active:bg-gray-600">
+                {item} <span>›</span>
+              </button>
+            ))}
+          </div>
+          {/* Menú Móvil */}
+          <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
+            <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+              <HomeIcon size={24} /> <span className="text-[10px] font-medium">Inicio</span>
+            </button>
+            <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+              <div className="relative"><ShoppingCart size={24} />{cart.length > 0 && <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">{cart.length}</span>}</div><span className="text-[10px] font-medium">Carrito</span>
+            </button>
+            <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+              <User size={24} /> <span className="text-[10px] font-medium">Perfil</span>
+            </button>
+          </nav>
+        </div>
+    );
+  }
 }
