@@ -1,9 +1,9 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import Head from 'next/head'; 
-import { Home as HomeIcon, ShoppingCart, User, Download, Share, Filter, X } from 'lucide-react';
+import { Home as HomeIcon, ShoppingCart, User, Download, Share, Filter, X, Plus, HelpCircle } from 'lucide-react';
 
-// Importamos tus componentes originales (¡ESTO ES CLAVE!)
+// Importamos tus componentes originales
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -29,7 +29,7 @@ const texts = {
   },
 };
 
-// 🟦 TUS PRODUCTOS ORIGINALES
+// 🟦 TUS PRODUCTOS (52 Items)
 const productos = [
   { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable", description: "Audio Premium: Drivers de 50 mm con sonido envolvente y cristalino. Micrófono: Desmontable y omnidireccional para comunicación clara.", price: 30000, image: "/images/auriculares.jpg", category: "Audio" },
   { id: 2, title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020", description: "Rendimiento Rápido: Procesador Celeron, 4 GB de RAM y disco SSD de 128 GB. Autonomía: Batería de 5000 mAh.", price: 370000, image: "/images/notebook.jpg", category: "Computación" },
@@ -61,7 +61,7 @@ const productos = [
   { id: 28, title: "Auricular Aiwa TWA-80B Blanco", description: "Conectividad: Bluetooth. Control: Micrófono y Touch multifunción. Diseño In-Ear.", price: 20000, image: "/images/auriaiwa.jpg", category: "Audio" },
   { id: 29, title: "Aspiradora Robot Sansei", description: "Doble Función: Aspira (1400 Pa) y trapea. Filtro: HEPA. Autonomía: 120 min.", price: 240000, image: "/images/aspisansei.jpg", category: "Hogar" },
   { id: 30, title: "Pizarra Mágica 12", description: "Pantalla: LCD de 12.5 pulgadas multicolor. Fácil de Usar: Escribe y borra con un toque.", price: 9500, image: "/images/pizzarra.jpg", category: "Juguetes" },
-  { id: 31, title: "Cuatriciclo Stark Naranja 6V", description: "Edad Recomendada: 2 a 4 años. Rendimiento: Batería de 6 V. Marcha adelante y atrás.", price: 110000, image: "/images/cuatri.jpg", category: "Juguetes" },
+  { id: 31, title: "Cuatriciclo Stark Naranja 6V", description: "Edad Recomendada: Niños de 2 a 4 años. Rendimiento: Batería de 6 V. Marcha adelante y atrás.", price: 110000, image: "/images/cuatri.jpg", category: "Juguetes" },
   { id: 32, title: "Cuatriciclo Stark Blanco 6V", description: "Edad Recomendada: 2 a 4 años. Rendimiento: Batería de 6 V. Diseño realista.", price: 110000, image: "/images/cuatrib.jpg", category: "Juguetes" },
   { id: 33, title: "Mesa Didáctica Unicornio", description: "Mesa didáctica con proyector temático de Unicornio. Incluye 1 libro, 24 patrones.", price: 30000, image: "/images/mesauni.jpg", category: "Juguetes" },
   { id: 34, title: "Mesa Didáctica Dinosaurio", description: "Mesa didáctica con proyector temático de Dinosaurio. Incluye 1 libro, 24 patrones.", price: 30000, image: "/images/mesadino.jpg", category: "Juguetes" },
@@ -89,46 +89,47 @@ export default function Home() {
   const [lang, setLang] = useState("es");
   const t = texts[lang];
 
-  // Filtros
-  const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Todas");
-  const [sort, setSort] = useState("none");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [activeTab, setActiveTab] = useState('home');
+  const [cart, setCart] = useState([]);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-
-  // PWA
+  const [showInstallHelp, setShowInstallHelp] = useState(false);
+  
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isIOS, setIsIOS] = useState(false);
 
-  // Inicialización
   useEffect(() => {
-    // Service Worker
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js');
     }
-    // Evento de Instalación
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    // Detectar iOS
     const userAgent = window.navigator.userAgent.toLowerCase();
     setIsIOS(/iphone|ipad|ipod/.test(userAgent));
-
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, []);
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
+      // Si la app está lista para instalar, la instalamos
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') setDeferredPrompt(null);
+    } else {
+      // Si NO está lista (falta ícono o es iOS), mostramos la ayuda manual
+      setShowInstallHelp(true);
     }
   };
 
-  // Lógica de Filtrado
+  // Lógica de Filtros
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Todas");
+  const [sort, setSort] = useState("none");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+
   const categories = ["Todas", ...new Set(productos.map((p) => p.category))];
 
   const productosFiltrados = useMemo(() => {
@@ -146,16 +147,22 @@ export default function Home() {
     setSearch(""); setSelectedCategory("Todas"); setSort("none"); setMinPrice(""); setMaxPrice("");
   };
 
-  // Renderizado
-  return (
-    <div className="bg-dark min-h-screen font-sans text-white">
-      
-      {/* HEADER ORIGINAL */}
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+    if (navigator.vibrate) navigator.vibrate(50);
+  };
+
+  const removeFromCart = (index) => setCart(cart.filter((_, i) => i !== index));
+  const calculateTotal = () => cart.reduce((total, item) => total + item.price, 0).toLocaleString();
+
+  // --- VISTAS ---
+
+  const renderHome = () => (
+    <>
       <Navbar lang={lang} onChangeLang={setLang} />
 
-      <main className="px-6 md:px-12 pt-8 pb-32 relative">
+      <main className="min-h-screen px-6 md:px-12 pt-12 bg-dark text-white pb-32 relative">
         
-        {/* META TAGS APP */}
         <Head>
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content="#2563eb" />
@@ -163,122 +170,198 @@ export default function Home() {
           <meta name="apple-mobile-web-app-capable" content="yes" />
         </Head>
 
-        {/* BOTÓN INSTALAR FLOTANTE */}
-        {deferredPrompt && (
-          <div className="fixed top-24 right-4 z-50 animate-bounce">
-            <button onClick={handleInstallClick} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-2xl flex items-center gap-2 border-2 border-white">
-              <Download size={20} /> <span className="hidden md:inline">Instalar App</span>
+        {/* --- BOTÓN FLOTANTE PERMANENTE --- */}
+        <div className="fixed top-24 right-4 z-50">
+            <button 
+              onClick={handleInstallClick} 
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-2xl flex items-center gap-2 border-2 border-white animate-bounce"
+            >
+              <Download size={20} /> 
+              <span className="hidden md:inline">Instalar App</span>
             </button>
-          </div>
-        )}
+        </div>
 
-        {/* AVISO iOS */}
-        {isIOS && (
-          <div className="bg-gray-800 p-4 rounded-xl mb-6 flex gap-3 border border-gray-700 mx-auto max-w-md">
-            <Share className="text-blue-400" size={24} />
-            <div className="text-sm">
-              <p className="font-bold">Instalar App en iPhone:</p>
-              <p className="text-gray-400">Toca <strong>Compartir</strong> y elige <strong>"Agregar a Inicio"</strong>.</p>
+        {/* --- MODAL DE AYUDA MANUAL (Si la instalación falla) --- */}
+        {showInstallHelp && (
+          <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4">
+            <div className="bg-gray-800 p-6 rounded-xl max-w-sm w-full border border-gray-600 relative">
+              <button onClick={() => setShowInstallHelp(false)} className="absolute top-2 right-2 text-gray-400"><X size={24}/></button>
+              <h3 className="text-xl font-bold mb-4 text-white flex items-center gap-2"><Smartphone /> Instalar App Manualmente</h3>
+              <p className="text-gray-300 mb-4">Tu navegador no permite instalación automática (o faltan los íconos). Sigue estos pasos:</p>
+              
+              <div className="space-y-4 text-sm">
+                <div className="flex gap-3 items-start">
+                  <span className="bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0">1</span>
+                  <p>Toca el botón de <strong>Opciones</strong> de tu navegador (los 3 puntos o botón Compartir).</p>
+                </div>
+                <div className="flex gap-3 items-start">
+                  <span className="bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold shrink-0">2</span>
+                  <p>Busca la opción <strong>"Agregar a la pantalla de inicio"</strong> o "Instalar Aplicación".</p>
+                </div>
+              </div>
+              
+              <button onClick={() => setShowInstallHelp(false)} className="w-full mt-6 bg-gray-700 hover:bg-gray-600 py-2 rounded-lg font-bold">Entendido</button>
             </div>
           </div>
         )}
 
-        {/* TÍTULO HERO */}
+        {/* Título */}
         <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4 text-cyan-400 drop-shadow-md">
-            {t.heroTitle}
-            </h1>
-            <p className="text-gray-300 text-center max-w-2xl mx-auto text-sm md:text-base">
-            {t.heroSubtitle1}<br className="hidden md:block" />{t.heroSubtitle2}
-            </p>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4 text-cyan-400 drop-shadow-md">{t.heroTitle}</h1>
+            <p className="text-gray-300 text-center max-w-2xl mx-auto text-sm md:text-base">{t.heroSubtitle1}<br />{t.heroSubtitle2}</p>
         </div>
 
         <ShippingCalculator lang={lang} />
 
-        {/* BOTÓN FILTROS MÓVIL */}
-        <button 
-            className="md:hidden w-full mb-4 flex items-center justify-center gap-2 bg-gray-800 py-3 rounded-lg border border-gray-700 text-white"
-            onClick={() => setShowMobileFilters(!showMobileFilters)}
-        >
+        {/* Botón Filtros Móvil */}
+        <button className="md:hidden w-full mb-4 flex items-center justify-center gap-2 bg-gray-800 py-3 rounded-lg border border-gray-700 text-white" onClick={() => setShowMobileFilters(!showMobileFilters)}>
             <Filter size={18} /> {showMobileFilters ? 'Ocultar Filtros' : 'Mostrar Filtros'}
         </button>
 
-        {/* CONTENEDOR PRINCIPAL */}
-        <div className="flex flex-col md:flex-row mt-8 gap-10">
+        <div className="flex flex-col md:flex-row mt-12 gap-10">
           
-          {/* SIDEBAR FILTROS */}
-          <aside className={`${showMobileFilters ? 'block' : 'hidden'} md:block w-full md:w-64 bg-gray-900/50 border border-cyan-700/20 rounded-xl p-5 h-fit md:sticky md:top-24 backdrop-blur-sm`}>
+          {/* Sidebar */}
+          <aside className={`${showMobileFilters ? 'block' : 'hidden'} md:block w-full md:w-64 bg-dark/40 border border-cyan-700/20 rounded-xl p-5 h-fit md:sticky md:top-20`}>
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-cyan-400 font-semibold text-lg">{t.filters}</h3>
-                {showMobileFilters && <button onClick={() => setShowMobileFilters(false)}><X size={20}/></button>}
+                {showMobileFilters && <button onClick={() => setShowMobileFilters(false)}><X size={20} className="text-white"/></button>}
             </div>
-
-            {/* Inputs de Filtro */}
-            <input type="text" placeholder={t.search} value={search} onChange={(e) => setSearch(e.target.value)} 
-              className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4" />
-            
+            <input type="text" placeholder={t.search} value={search} onChange={(e) => setSearch(e.target.value)} className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4" />
             <div className="mb-4">
-               <label className="text-gray-400 text-sm block mb-2">{t.categories}</label>
-               <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} 
-                 className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg">
-                 {categories.map((c) => <option key={c}>{c}</option>)}
-               </select>
+                <label className="text-light text-sm block mb-2">{t.categories}</label>
+                <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg">{categories.map((c) => <option key={c}>{c}</option>)}</select>
             </div>
-
-            <label className="text-gray-400 text-sm">{t.priceRange}</label>
+            <label className="text-light text-sm">{t.priceRange}</label>
             <div className="flex gap-2 mb-4">
-                <input type="number" placeholder={t.min} value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="w-1/2 bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
-                <input type="number" placeholder={t.max} value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-1/2 bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
+              <input type="number" placeholder={t.min} value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="w-1/2 bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
+              <input type="number" placeholder={t.max} value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} className="w-1/2 bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg" />
             </div>
-            
-            <label className="text-gray-400 text-sm">{t.orderBy}</label>
-            <select value={sort} onChange={(e) => setSort(e.target.value)} className="w-full bg-gray-800 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4">
-                <option value="none">{t.none}</option>
-                <option value="price-asc">{t.asc}</option>
-                <option value="price-desc">{t.desc}</option>
+            <label className="text-light text-sm">{t.orderBy}</label>
+            <select value={sort} onChange={(e) => setSort(e.target.value)} className="w-full bg-dark/60 border border-cyan-700/30 text-white px-3 py-2 rounded-lg mb-4">
+              <option value="none">{t.none}</option>
+              <option value="price-asc">{t.asc}</option>
+              <option value="price-desc">{t.desc}</option>
             </select>
-            
             <button onClick={resetFilters} className="w-full mt-2 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg">{t.clear}</button>
           </aside>
 
-          {/* 🟦 GRILLA DE PRODUCTOS (Usando ProductCard Original) */}
+          {/* 🟦 PRODUCTOS: Usando tu componente original y corrigiendo la grilla */}
           <section id="productos" className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {productosFiltrados.length > 0 ? (
               productosFiltrados.map((p) => (
-                // AQUÍ ESTÁ LA SOLUCIÓN: Usamos tu componente original
-                <ProductCard 
-                  key={p.id}
-                  id={p.id}
-                  title={p.title}
-                  price={p.price}
-                  image={p.image}
-                  description={p.description}
-                  lang={lang}
-                />
+                <div key={p.id} className="flex flex-col">
+                    {/* Usamos tu componente original tal cual */}
+                    <ProductCard
+                      id={p.id}
+                      title={p.title}
+                      price={p.price}
+                      image={p.image}
+                      description={p.description}
+                      lang={lang}
+                    />
+                    {/* Botón extra para conectar con el carrito de la App si el ProductCard no lo hace */}
+                    <button onClick={() => addToCart(p)} className="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg md:hidden">
+                        <Plus size={16} className="inline mr-1"/> Agregar
+                    </button>
+                </div>
               ))
             ) : (
-              <div className="text-center w-full py-20 text-gray-500 col-span-full">
-                  <p className="text-xl">No se encontraron productos</p>
-              </div>
+              <p className="text-gray-400 text-lg w-full text-center py-20 col-span-full">No se encontraron productos</p>
             )}
           </section>
         </div>
       </main>
-
       <Footer lang={lang} />
+    </>
+  );
+
+  const renderCart = () => (
+    <div className="px-4 pt-8 pb-32 min-h-screen bg-gray-900 text-white">
+      <h2 className="text-3xl font-bold mb-6">Tu Carrito</h2>
+      {cart.length === 0 ? (
+        <div className="flex flex-col items-center justify-center mt-20 text-gray-500">
+          <ShoppingCart size={64} className="mb-4 opacity-50" />
+          <p>Tu carrito está vacío</p>
+          <button onClick={() => setActiveTab('home')} className="mt-4 text-blue-400 font-semibold">Ir a comprar</button>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {cart.map((item, index) => (
+            <div key={index} className="flex justify-between items-center bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-sm">
+              <div className="flex gap-4 items-center">
+                 <div className="w-16 h-16 bg-white rounded-lg overflow-hidden border border-gray-600 p-1">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
+                 </div>
+                <div className="flex-1">
+                  <p className="font-bold text-sm text-white line-clamp-2">{item.title}</p>
+                  <p className="text-cyan-400 font-bold">${item.price.toLocaleString()}</p>
+                </div>
+              </div>
+              <button onClick={() => removeFromCart(index)} className="text-red-400 bg-red-900/20 p-2 rounded-full hover:bg-red-900/40">
+                <Trash2 size={20} />
+              </button>
+            </div>
+          ))}
+          <div className="fixed bottom-20 left-0 w-full bg-gray-800 border-t border-gray-700 p-4 px-6 shadow-2xl">
+            <div className="flex justify-between items-center mb-4 text-lg">
+              <span className="text-gray-400">Total</span>
+              <span className="font-bold text-2xl text-cyan-400">${calculateTotal()}</span>
+            </div>
+            <button className="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold text-lg transition-colors">
+              Pagar Ahora
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderProfile = () => (
+    <div className="p-6 pt-12 min-h-screen bg-gray-900 text-white">
+      <div className="flex items-center gap-4 mb-8">
+        <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center text-cyan-400">
+            <User size={32} />
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold">Hola, Cliente</h2>
+          <p className="text-gray-400">Bienvenido</p>
+        </div>
+      </div>
+      <div className="space-y-3">
+        {['Mis Pedidos', 'Direcciones', 'Soporte', 'Cerrar Sesión'].map((item) => (
+          <button key={item} className="w-full text-left p-4 bg-gray-800 border border-gray-700 rounded-xl font-medium shadow-sm flex justify-between hover:bg-gray-700 transition-colors">
+            {item} <span>›</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="bg-dark text-white min-h-screen font-sans">
+      {activeTab === 'home' && renderHome()}
+      {activeTab === 'cart' && renderCart()}
+      {activeTab === 'profile' && renderProfile()}
 
       {/* MENÚ APP (Solo visible en móvil) */}
       <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
-        <button className="flex flex-col items-center gap-1 text-cyan-400">
+        <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
           <HomeIcon size={24} strokeWidth={2.5} />
           <span className="text-[10px] font-medium">Inicio</span>
         </button>
-        <button className="flex flex-col items-center gap-1 hover:text-cyan-400 transition-colors">
-          <ShoppingCart size={24} />
+        <button onClick={() => setActiveTab('cart')} className={`flex flex-col items-center gap-1 relative ${activeTab === 'cart' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+          <div className="relative">
+            <ShoppingCart size={24} strokeWidth={activeTab === 'cart' ? 2.5 : 2} />
+            {cart.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-bounce">
+                {cart.length}
+              </span>
+            )}
+          </div>
           <span className="text-[10px] font-medium">Carrito</span>
         </button>
-        <button className="flex flex-col items-center gap-1 hover:text-cyan-400 transition-colors">
-          <User size={24} />
+        <button onClick={() => setActiveTab('profile')} className={`flex flex-col items-center gap-1 ${activeTab === 'profile' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
+          <User size={24} strokeWidth={activeTab === 'profile' ? 2.5 : 2} />
           <span className="text-[10px] font-medium">Perfil</span>
         </button>
       </nav>
