@@ -1,10 +1,11 @@
 "use client";
 import { useState, useMemo, useEffect } from "react";
 import Head from 'next/head'; 
-import { Home as HomeIcon, ShoppingCart, User, Download, Share, Search, Filter, X, Plus, Trash2 } from 'lucide-react';
+import { Home as HomeIcon, ShoppingCart, User, Smartphone, Download, Share, Search, Filter, X, Plus, Trash2 } from 'lucide-react';
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
 import ShippingCalculator from "@/components/ShippingCalculator";
 
 const texts = {
@@ -12,6 +13,7 @@ const texts = {
     heroTitle: "Tecnología con estilo",
     heroSubtitle1: "Equipos, accesorios y soluciones tech diseñadas para simplificar tu vida digital.",
     heroSubtitle2: "Innovación, diseño y potencia — todo en un solo lugar.",
+    cta: "Ver productos",
     filters: "Filtros",
     search: "Buscar producto...",
     categories: "Categorías",
@@ -26,7 +28,7 @@ const texts = {
   },
 };
 
-// 🟦 TUS PRODUCTOS (52 Items)
+// 🟦 TUS PRODUCTOS
 const productos = [
   { id: 1, title: "Headset Gamer Aimzone negro microfono desmontable", description: "Audio Premium: Drivers de 50 mm con sonido envolvente y cristalino. Micrófono: Desmontable.", price: 30000, image: "/images/auriculares.jpg", category: "Audio" },
   { id: 2, title: "Notebook Celeron 14.1\" 4GB 128 GB SSD Philco N14P4020", description: "Rendimiento Rápido: Procesador Celeron, 4 GB de RAM y disco SSD de 128 GB. Autonomía: Batería de 5000 mAh.", price: 370000, image: "/images/notebook.jpg", category: "Computación" },
@@ -157,9 +159,28 @@ export default function Home() {
   // 1. HOME
   const RenderHome = () => (
     <>
-      <Navbar lang={lang} onChangeLang={setLang} />
+      {/* CORRECCIÓN CRÍTICA: Navbar Híbrida */}
+      <div className="hidden md:block">
+        <Navbar lang={lang} onChangeLang={setLang} />
+      </div>
 
-      <main className="min-h-screen px-6 md:px-12 pt-12 bg-dark text-white pb-32 relative">
+      {/* Header Móvil: Limpio y Centrado */}
+      <header className="md:hidden sticky top-0 z-40 bg-gray-900/95 backdrop-blur-md border-b border-gray-800 px-4 py-3 flex justify-between items-center shadow-lg">
+         <div className="flex items-center gap-2">
+            <div className="bg-gradient-to-br from-blue-600 to-cyan-500 text-white p-1.5 rounded-lg shadow-lg">
+                <Smartphone size={20} strokeWidth={2.5} />
+            </div>
+            <span className="font-extrabold text-xl tracking-tight text-white">SOL<span className="text-cyan-400">Tech</span></span>
+         </div>
+         <button 
+            onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
+            className="text-xs font-bold bg-gray-800 hover:bg-gray-700 text-cyan-400 px-3 py-1.5 rounded-full border border-gray-700 transition-colors"
+         >
+            {lang === 'es' ? 'ES' : 'EN'}
+         </button>
+      </header>
+
+      <main className="min-h-screen px-4 md:px-12 pt-8 pb-32 relative bg-dark text-white">
         
         <Head>
           <link rel="manifest" href="/manifest.json" />
@@ -169,14 +190,16 @@ export default function Home() {
         </Head>
 
         {/* Botón Instalar */}
-        <div className="fixed top-24 right-4 z-50">
+        {deferredPrompt && (
+          <div className="fixed top-24 right-4 z-50">
             <button 
               onClick={handleInstallClick} 
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-2xl flex items-center gap-2 border-2 border-white animate-bounce"
             >
               <Download size={20} /> <span className="hidden md:inline">Instalar App</span>
             </button>
-        </div>
+          </div>
+        )}
 
         {/* Modal Ayuda */}
         {showInstallHelp && (
@@ -194,9 +217,10 @@ export default function Home() {
           </div>
         )}
 
-        <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-brand mb-4 text-cyan-400 drop-shadow-md">{t.heroTitle}</h1>
-            <p className="text-gray-300 text-center max-w-2xl mx-auto text-sm md:text-base">{t.heroSubtitle1}<br />{t.heroSubtitle2}</p>
+        {/* Título con margen arreglado */}
+        <div className="text-center mb-8 mt-4">
+            <h1 className="text-3xl md:text-5xl font-extrabold text-brand mb-3 text-cyan-400 drop-shadow-md leading-tight">{t.heroTitle}</h1>
+            <p className="text-gray-300 text-center max-w-2xl mx-auto text-sm md:text-base px-4">{t.heroSubtitle1}<br className="hidden md:block" />{t.heroSubtitle2}</p>
         </div>
 
         <ShippingCalculator lang={lang} />
@@ -337,7 +361,7 @@ export default function Home() {
       {activeTab === 'cart' && <RenderCart />}
       {activeTab === 'profile' && <RenderProfile />}
 
-      {/* Menú Móvil (Visible en todas las pestañas) */}
+      {/* Menú Móvil */}
       <nav className="fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gray-800 flex justify-around py-3 z-50 md:hidden text-gray-400 pb-safe shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
         <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-cyan-400 scale-110' : ''} transition-all`}>
           <HomeIcon size={24} strokeWidth={activeTab === 'home' ? 2.5 : 2} />
