@@ -1,111 +1,90 @@
-"use client";
-import Image from "next/image";
-import { useState } from "react";
-import { Info } from "lucide-react";
-import { useCart } from "@/context/CartContext";
+'use client';
 
-export default function ProductCard({ id, title, description, price, image }) {
-  const { addToCart } = useCart();
-  const [showInfo, setShowInfo] = useState(false);
-  const [loading, setLoading] = useState(false);
+import { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast'; // Asumiendo que usas react-hot-toast o similar
 
-  const handleAdd = () => {
-    addToCart({ id, title, description, price, image });
-  };
+// 1. Creación del Contexto
+const CartContext = createContext();
 
-  const handleBuy = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, quantity: 1, price }),
-      });
-      const data = await response.json();
-      if (data.init_point) {
-        window.location.href = data.init_point;
-      } else {
-        alert("No se pudo iniciar el pago.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error al procesar el pago.");
-    } finally {
-      setLoading(false);
-    }
-  };
+// 2. Custom Hook para usar el Contexto (Simple y Correcto)
+// Este Hook SOLO usa useContext, cumpliendo con las Reglas de Hooks.
+export const useCart = () => {
+    return useContext(CartContext);
+};
 
-  return (
-    <div className="relative bg-dark/40 backdrop-blur-sm rounded-2xl shadow-lg border border-cyan-700/30 p-4 text-center transition hover:shadow-cyan-400/30 hover:scale-[1.02] w-72">
-      {/* Imagen */}
-      <div className="relative w-full h-48 mb-4 overflow-hidden rounded-xl bg-dark/70 flex items-center justify-center">
-        {image ? (
-          <Image
-            src={image}
-            alt={title}
-            width={300}
-            height={200}
-            className="object-contain w-full h-full"
-          />
-        ) : (
-          <div className="text-gray-400 text-sm">Sin imagen</div>
-        )}
-        <button
-          onClick={() => setShowInfo(true)}
-          className="absolute top-2 right-2 bg-cyan-600/80 hover:bg-cyan-500 text-white p-2 rounded-full shadow-md transition"
-          title="Ver detalles"
-        >
-          <Info size={18} />
-        </button>
-      </div>
+// 3. Componente Proveedor (Aquí van los Hooks, solo al inicio)
+export function CartProvider({ children }) {
+    // Hooks al inicio del componente Provider: CUMPLEN la Regla de Hooks.
+    const [cart, setCart] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+    
+    // Función para cargar el carrito de localStorage
+    useEffect(() => {
+        const storedCart = localStorage.getItem('soltech_cart');
+        if (storedCart) {
+            try {
+                setCart(JSON.parse(storedCart));
+            } catch (e) {
+                console.error("Error al parsear el carrito de localStorage:", e);
+                setCart([]); // Limpiar si hay error de formato
+            }
+        }
+        setIsLoaded(true);
+    }, []);
 
-      {/* Info principal */}
-      <h3 className="text-cyan-400 font-semibold text-lg mb-1">{title}</h3>
-      <p className="text-light font-semibold text-base mb-4">
-        {price ? `$${price.toLocaleString("es-AR")}` : "Precio no disponible"}
-      </p>
+    // Función para guardar el carrito en localStorage cada vez que cambia
+    useEffect(() => {
+        if (isLoaded) { // Evita guardar un array vacío al inicio
+            localStorage.setItem('soltech_cart', JSON.stringify(cart));
+        }
+    }, [cart, isLoaded]);
 
-      {/* Botones */}
-      <div className="flex flex-col gap-2">
-        <button
-          onClick={handleAdd}
-          className="px-5 py-2 rounded-lg text-white font-medium bg-cyan-500 hover:bg-cyan-400 transition"
-        >
-          🛒 Agregar al carrito
-        </button>
 
-        <button
-          onClick={handleBuy}
-          disabled={loading}
-          className={`px-5 py-2 rounded-lg text-white font-medium transition ${
-            loading
-              ? "bg-gray-500 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-400"
-          }`}
-        >
-          {loading ? "Procesando..." : "⚡ Comprar ahora"}
-        </button>
-      </div>
+    // Lógica para añadir producto al carrito
+    const addToCart = (product) => {
+        const existingItem = cart.find(item => item.id === product.id);
 
-      {/* Modal descripción */}
-      {showInfo && (
-        <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
-          <div className="bg-[#0d1117] p-6 rounded-2xl w-11/12 max-w-md shadow-xl border border-cyan-700/30 relative">
-            <h2 className="text-xl text-cyan-400 font-semibold mb-3">{title}</h2>
-            <p className="text-gray-300 mb-6 text-sm leading-relaxed">
-              {description}
-            </p>
+        if (existingItem) {
+            setCart(
+                cart.map(item =>
+                    item.id === product.id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                )
+            );
+            toast.success(`Se agregó otra unidad de ${product.title}`);
+        } else {
+            setCart([...cart, { ...product, quantity: 1 }]);
+            toast.success(`Producto agregado: ${product.title}`);
+        }
+    };
 
-            <button
-              onClick={() => setShowInfo(false)}
-              className="absolute top-2 right-3 text-gray-400 hover:text-cyan-300 text-lg"
-              title="Cerrar"
-            >
-              ✖
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+    // Lógica para remover producto del carrito
+    const removeFromCart = (productId) => {
+        setCart(cart.filter(item => item.id !== productId));
+        toast.error('Producto eliminado del carrito.');
+    };
+    
+    // Función para calcular el total de items en el carrito
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+    
+    // Función para calcular el monto total
+    const totalAmount = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    
+    
+    // 4. El objeto de valor que se pasa a los componentes
+    const contextValue = {
+        cart,
+        addToCart,
+        removeFromCart,
+        totalItems,
+        totalAmount,
+        // Puedes añadir más funciones como clearCart, updateQuantity, etc.
+    };
+
+    return (
+        <CartContext.Provider value={contextValue}>
+            {children}
+        </CartContext.Provider>
+    );
 }
